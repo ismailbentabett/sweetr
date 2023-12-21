@@ -1,40 +1,42 @@
-import { For } from 'solid-js';
+import { For } from "solid-js";
+import { JSX } from "solid-js/jsx-runtime";
 
-
-const randomize = () => Math.floor(Math.random() * 500);
+const randomize = () => Math.floor(Math.random() * 500)
 
 const trends = [
   {
     category: "Sports",
     content: "Some team won something!",
-    sweetCount: randomize(),
+    sweetCount: randomize()
   },
   {
     category: "Finance",
     content: "Bitcoin down again!",
-    sweetCount: randomize(),
+    sweetCount: randomize()
   },
   {
     category: "PC & Games",
     content: "New Eincode game out!",
-    sweetCount: randomize(),
+    sweetCount: randomize()
   },
   {
     category: "Economy",
     content: "It's goin well...",
-    sweetCount: randomize(),
+    sweetCount: randomize()
   },
   {
     category: "Celebrities",
     content: "Some useless news!",
-    sweetCount: randomize(),
+    sweetCount: randomize()
   },
   {
     category: "Movies",
     content: "Peter Jackson as the director of new Lotr",
-    sweetCount: randomize(),
+    sweetCount: randomize()
   },
-];
+]
+
+
 
 const TrendsSidebar = () => {
   return (
@@ -44,20 +46,20 @@ const TrendsSidebar = () => {
       </div>
 
       <For each={trends}>
-        {(trend) => (
+        { (trend: { content: number | boolean | Node | JSX.ArrayElement | (string & {}) | null | undefined; category: number | boolean | Node | JSX.ArrayElement | (string & {}) | null | undefined; sweetCount: number | boolean | Node | JSX.ArrayElement | (string & {}) | null | undefined; }) =>
           <div class="flex-it p-4 cursor-pointer transition duration-200 hover:bg-gray-700">
             <div class="flex-it">
-              <span class="text-gray-400 text-sm">{trend.content}</span>
-              <span class="text-lg font-bold">{trend.category}</span>
               <span class="text-gray-400 text-sm">
-                {trend.sweetCount} sweets
+                {trend.content}
               </span>
+              <span class="text-lg font-bold">{trend.category}</span>
+              <span class="text-gray-400 text-sm">{trend.sweetCount} sweets</span>
             </div>
           </div>
-        )}
+        }
       </For>
     </div>
-  );
-};
+  )
+}
 
 export default TrendsSidebar;
