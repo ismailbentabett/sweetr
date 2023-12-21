@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dicebear/collection": "^7.0.1",
+    "@dicebear/core": "^7.0.1",
     "@solidjs/router": "^0.10.5",
     "@tailwindcss/forms": "^0.5.7",
     "solid-icons": "^1.1.0",
