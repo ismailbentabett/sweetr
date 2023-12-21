@@ -3,17 +3,21 @@ import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import SweetPost from "../components/sweets/SweetPost";
 import { Sweet } from "../types/Sweet";
+import Avatar from "../components/Avatar";
+import { useAuthContext } from "../context/authContext";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [sweets, setSweets] = createSignal<Sweet[]>([]);
+
+  const AuthState = useAuthContext();
 
   const createSweet = () => {
     const sweet = {
       id: createUniqueId(),
       content: content(),
       user: {
-        nickName: "Filip99",
+        nickName: "ismailbentabett",
         avatar: "https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
       },
       likesCount: 0,
@@ -31,10 +35,8 @@ const HomeScreen: Component = () => {
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-            <img
-              class="rounded-full"
-              src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
-            ></img>
+          <Avatar username={"ismailbentabett"}  />
+
           </div>
         </div>
         {/* MESSENGER START */}
@@ -54,9 +56,9 @@ const HomeScreen: Component = () => {
           </div>
           <div class="flex-it mb-1 flex-row xs:justify-between items-center">
             <div class="flex-it mt-3 mr-3 cursor-pointer text-white hover:text-froly-400 transition">
-              <div class="upload-btn-wrapper">
-                <FaRegularImage class="cursor-pointer" size={18} />
-                <input type="file" name="myfile" />
+              <div class="upload-btn-wrapper cursor-pointer">
+              <FaRegularImage size={18} style={{ cursor: 'pointer' }} />
+                <input style={{ cursor: 'pointer' }} type="file" name="myfile" />
               </div>
             </div>
             <div class="flex-it w-32 mt-3 cursor-pointer">
