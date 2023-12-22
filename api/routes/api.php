@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 // routes/api.php
 
 
-Route::middleware(['auth:api'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('sweets')->group(function () {
         Route::get('/', [SweetController::class, 'index']);
         Route::post('/', [SweetController::class, 'store']);
