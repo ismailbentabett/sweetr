@@ -9,10 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Overtrue\LaravelFollow\Traits\Follower;
 use Overtrue\LaravelFollow\Traits\Followable;
+use LaravelInteraction\Block\Concerns\Blocker;
+use LaravelInteraction\Block\Concerns\Blockable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Follower, Followable;
+    use HasApiTokens, HasFactory, Notifiable, Follower, Followable, Blocker, Blockable;
 
     /**
      * The attributes that are mass assignable.
