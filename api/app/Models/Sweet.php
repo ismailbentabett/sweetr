@@ -17,6 +17,7 @@ class Sweet extends Model
 
     protected static $marks = [
         Like::class,
+        Bookmark::class
     ];
 
     public function user()
