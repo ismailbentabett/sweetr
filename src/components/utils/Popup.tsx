@@ -21,7 +21,7 @@ const Popup: Component<Props> = ({ opener: Opener }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logout();
+     logout();
     setIsOpen(false);
     navigate("/login");
   };

@@ -17,10 +17,9 @@ export const AuthProvider = (
   }
 ) => {
   const [user, setUser] = createSignal(null);
+  const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 
-  // Check if the user is authenticated on page load
   createEffect(() => {
-    // Make a request to your Laravel backend to check authentication status
     axios
       .get(`${baseUrl}/api/user`, {
         withCredentials: true,
@@ -32,8 +31,20 @@ export const AuthProvider = (
           Accept: "application/json",
         },
       })
-      .then((response) => setUser(response.data))
-      .catch(() => setUser(null));
+      .then((response) => {
+        setUser(response.data);
+        console.log(response.data); 
+        if (user()) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      })
+
+      .catch((error) => {
+        console.error("Error checking authentication:", error);
+        // Handle the error appropriately, e.g., redirect to login page
+      });
   });
 
   const login = async (credentials: { email: string; password: string }) => {
@@ -126,7 +137,7 @@ export const AuthProvider = (
     }
   };
 
-  const value = { user, login, register, logout };
+  const value = { user, login, register, logout, isAuthenticated };
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>

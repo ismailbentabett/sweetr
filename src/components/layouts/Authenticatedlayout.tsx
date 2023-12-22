@@ -5,6 +5,7 @@ import MainSidebar from "../sidebars/Main";
 import TrendsSidebar from "../sidebars/Trends";
 import { useNavigate } from "@solidjs/router";
 import { useAuth } from "../../context/authContext";
+import { createComputed, createDeferred, createEffect, onCleanup } from "solid-js";
 
 interface AuthenticatedlayoutProps {
   children:
@@ -18,16 +19,16 @@ interface AuthenticatedlayoutProps {
 }
 
 const Authenticatedlayout = (props: AuthenticatedlayoutProps) => {
-  const { user, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  // Check if the user is authenticated
-  console.log(user());
-  if (!user()) {
-    // Redirect to login page if not authenticated
-    navigate("/login");
-    return null;
-  }
+const delayedIsAuthenticated = createDeferred(isAuthenticated);
+
+  createComputed(() => {
+    if (!delayedIsAuthenticated()) {
+      navigate("/login");
+    }
+  });
 
   return (
     <div class="w-full h-full bg-gray-900 text-gray-100">

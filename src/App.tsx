@@ -1,3 +1,4 @@
+// App.tsx
 import { JSX } from "solid-js";
 
 const App = (props: {
