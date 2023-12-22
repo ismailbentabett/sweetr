@@ -4,12 +4,15 @@ import { JSX, createContext, createSignal, useContext } from "solid-js";
 type AuthState = {
   isAuthenticated: boolean;
   user: string | null;
+  setIsAuthenticated?: (value: boolean) => void;
+  setUser?: (value: string | null) => void;
+  loading?: boolean;
+  setLoading?: (value: boolean) => void;
 };
 
 // Create the authentication context
 const AuthContext = createContext<AuthState>();
 
-// Create a provider component for the authentication context
 const AuthProvider = (props: {
   children:
     | number
@@ -22,12 +25,18 @@ const AuthProvider = (props: {
 }) => {
   const [isAuthenticated, setIsAuthenticated] = createSignal(false);
   const [user, setUser] = createSignal<string | null>(null);
-
-  // Add any authentication logic here, such as login, logout, etc.
+  const [loading, setLoading] = createSignal(true);
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: isAuthenticated(), user: user() }}
+      value={{
+        isAuthenticated: isAuthenticated(),
+        user: user(),
+        setIsAuthenticated,
+        setUser,
+        loading: loading(),
+        setLoading,
+      }}
     >
       {props.children}
     </AuthContext.Provider>
