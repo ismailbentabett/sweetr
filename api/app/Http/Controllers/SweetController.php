@@ -2,12 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sweet;
-use Illuminate\Http\Request;
-
-
-namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Models\Sweet;
 use App\Models\User;
