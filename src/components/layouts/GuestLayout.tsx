@@ -16,7 +16,13 @@ interface GuestLayoutProps {
 }
 
 const GuestLayout = (props: GuestLayoutProps) => {
-
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  if (user()) {
+    console.log(user());
+    navigate("/");
+    return null;
+  }
   return <>{props.children}</>;
 };
 
