@@ -8,6 +8,9 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import "./index.css";
+import { requireAuth } from "./middleware/auth";
+import { requireGuest } from "./components/guards/guards";
+
 const root = document.getElementById("root");
 
 render(
