@@ -3,14 +3,12 @@ import { Component, createSignal, createUniqueId, For } from "solid-js";
 import Avatar from "../components/Avatar";
 import MainLayout from "../components/layouts/Main";
 import SweetPost from "../components/sweets/SweetPost";
-import { useAuthContext } from "../context/authContext";
 import { Sweet } from "../types/Sweet";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [sweets, setSweets] = createSignal<Sweet[]>([]);
 
-  const AuthState = useAuthContext();
 
   const createSweet = () => {
     const sweet = {
