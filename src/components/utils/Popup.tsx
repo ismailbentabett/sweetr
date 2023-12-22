@@ -9,6 +9,7 @@ import {
 import { Portal } from "solid-js/web";
 import pageSize from "../../helpers/pageSize";
 import { useAuth } from "../../context/authContext";
+import { useNavigate } from "@solidjs/router";
 
 type Props = {
   opener: Component;
@@ -17,9 +18,12 @@ type Props = {
 const Popup: Component<Props> = ({ opener: Opener }) => {
   const [isOpen, setIsOpen] = createSignal();
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logout();
+    setIsOpen(false);
+    navigate("/login");
   };
 
   let followTo: HTMLDivElement;
