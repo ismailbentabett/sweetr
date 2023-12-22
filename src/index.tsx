@@ -1,25 +1,24 @@
-/* @refresh reload */
+// index.js
 import { render } from "solid-js/web";
-import "./index.css";
 import App from "./App";
 import { Route, Router } from "@solidjs/router";
-import LoginScreen from "./screens/Login";
-import RegisterScreen from "./screens/Register";
-import HomeScreen from "./screens/Home";
-import { AuthProvider } from "./context/authContext";
 
+import { AuthProvider } from "./context/authContext";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import "./index.css";
 const root = document.getElementById("root");
 
 render(
   () => (
-    <Router root={HomeScreen}>
-      <AuthProvider>
+    <AuthProvider>
+      <Router root={App}>
         <Route path="/" component={HomeScreen} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
-      </AuthProvider>
-    </Router>
+      </Router>
+    </AuthProvider>
   ),
-
   root!
 );
