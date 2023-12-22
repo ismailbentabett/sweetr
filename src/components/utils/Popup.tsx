@@ -1,6 +1,6 @@
 import { Component, createEffect, createSignal, onCleanup, onMount, Show } from "solid-js";
 import { Portal } from "solid-js/web";
-import pageSize from "../../reactive/pageSize";
+import pageSize from "../../helpers/pageSize";
 
 type Props = {
   opener: Component;
