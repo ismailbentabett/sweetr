@@ -22,7 +22,8 @@ const Authenticatedlayout = (props: AuthenticatedlayoutProps) => {
   const navigate = useNavigate();
 
   // Check if the user is authenticated
-  if (!user) {
+  console.log(user());
+  if (!user()) {
     // Redirect to login page if not authenticated
     navigate("/login");
     return null;
