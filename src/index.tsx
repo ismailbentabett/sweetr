@@ -10,6 +10,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import "./index.css";
 import { requireAuth } from "./middleware/auth";
 import { requireGuest } from "./components/guards/guards";
+import NotFound from "./components/NotFound";
 
 const root = document.getElementById("root");
 
@@ -20,6 +21,7 @@ render(
         <Route path="/" component={HomeScreen} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
+        <Route path="/:rest*" component={NotFound} />
       </Router>
     </AuthProvider>
   ),
