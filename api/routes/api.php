@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SweetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// routes/api.php
+
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::prefix('sweets')->group(function () {
+        Route::get('/', [SweetController::class, 'index']);
+        Route::post('/', [SweetController::class, 'store']);
+        Route::get('/{sweet}', [SweetController::class, 'show']);
+        Route::put('/{sweet}', [SweetController::class, 'update']);
+        Route::delete('/{sweet}', [SweetController::class, 'destroy']);
+    });
 });
