@@ -3,7 +3,7 @@ import { FiMoreHorizontal } from "solid-icons/fi";
 import { Component, For, Show } from "solid-js";
 import Popup from "../utils/Popup";
 import { links } from "./links";
-import pageSize from "../../reactive/pageSize";
+import pageSize from "../../helpers/pageSize";
 import { RiDesignQuillPenLine } from "solid-icons/ri";
 import { JSX } from "solid-js/jsx-runtime";
 import Avatar from "../Avatar";
@@ -16,7 +16,7 @@ const MainSidebar: Component = () => {
           <div class="flex-it h-full xl:w-80 w-20 overflow-y-auto px-3 justify-between">
             <div class="flex-it items-start">
               <div class="p-3 pt-4 xl:pb-3 pb-0 xl:text-2xl text-sm font-bold transition duration-200 hover:opacity-80">
-                <div class="p-3 pt-4 xl:pb-3 pb-0 xl:text-2xl text-sm font-bold transition duration-200 hover:opacity-80">
+                <div class=" xl:pb-3 pb-0 xl:text-2xl text-sm font-bold transition duration-200 hover:opacity-80">
                   <a href="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Sweetr</span>
                     <img class="h-16 w-16 " src="/logo.svg" alt="" />
