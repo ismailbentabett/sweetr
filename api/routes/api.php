@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SweetController;
+use App\Http\Controllers\userInteractionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,5 +45,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/{reply}', [ReplyController::class, 'show']);
         Route::put('/{reply}', [ReplyController::class, 'update']);
         Route::delete('/{reply}', [ReplyController::class, 'destroy']);
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::post('/follow', [userInteractionsController::class, 'follow']);
+        Route::post('/unfollow', [userInteractionsController::class, 'unfollow']);
+        Route::post('/block', [userInteractionsController::class, 'blockUser']);
+        Route::post('/unblock', [userInteractionsController::class, 'unblockUser']);
     });
 });
