@@ -17,10 +17,10 @@ const MainSidebar: Component = () => {
             <div class="flex-it items-start">
               <div class="p-3 pt-4 xl:pb-3 pb-0 xl:text-2xl text-sm font-bold transition duration-200 hover:opacity-80">
                 <div class=" xl:pb-3 pb-0 xl:text-2xl text-sm font-bold transition duration-200 hover:opacity-80">
-                  <a href="#" class="-m-1.5 p-1.5">
+                  <A href="/home" class="-m-1.5 p-1.5">
                     <span class="sr-only">Sweetr</span>
                     <img class="h-16 w-16 " src="/logo.svg" alt="" />
-                  </a>
+                  </A>
                 </div>
               </div>
               <div class="my-1 w-full flex-it">
@@ -80,8 +80,7 @@ const MainSidebar: Component = () => {
               <Popup
                 opener={() => (
                   <div class="my-3 flex justify-center items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xlcursor-pointer">
-                     
-                      <Avatar username={"ismailbentabett"}  />
+                    <Avatar username={"ismailbentabett"} />
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
                       <div class="flex-it mx-3 font-bold">ismailbentabett</div>
                       <div class="flex-it">
