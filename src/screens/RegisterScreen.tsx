@@ -15,7 +15,7 @@ const RegisterScreen: Component = () => {
     nickName: "",
     email: "",
     password: "",
-    passwordConfirmation: "",
+    password_confirmation: "",
   });
 
   const handleRegister = async () => {
@@ -24,6 +24,7 @@ const RegisterScreen: Component = () => {
       name: values().name,
       email: values().email,
       password: values().password,
+      password_confirmation: values().password_confirmation,
     });
 
     // Redirect to the login page after successful registration
@@ -70,6 +71,16 @@ const RegisterScreen: Component = () => {
                       error={errors().password}
                       onInput={(e: { target: { value: string } }) =>
                         handleChange("password", e.target.value)
+                      }
+                    />
+                       <Input
+                      label="password confirmation"
+                      name="password_confirmation"
+                      type="password"
+                      value={values().password}
+                      error={errors().password}
+                      onInput={(e: { target: { value: string } }) =>
+                        handleChange("password_confirmation", e.target.value)
                       }
                     />
                   </div>
