@@ -1,7 +1,7 @@
 import { FaRegularImage } from "solid-icons/fa";
 import { Component, createSignal, createUniqueId, For } from "solid-js";
 import Avatar from "../components/Avatar";
-import MainLayout from "../components/layouts/Main";
+import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import SweetPost from "../components/sweets/SweetPost";
 import { Sweet } from "../types/Sweet";
 
@@ -28,7 +28,7 @@ const HomeScreen: Component = () => {
   }
 
   return (
-    <MainLayout>
+    <Authenticatedlayout>
       {/* HOME PAGE START */}
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
@@ -83,7 +83,7 @@ const HomeScreen: Component = () => {
         }
       </For>
       {/* HOME PAGE END */}
-    </MainLayout>
+    </Authenticatedlayout>
   );
 };
 
