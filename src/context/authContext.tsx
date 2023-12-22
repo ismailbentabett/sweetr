@@ -6,10 +6,10 @@ import {
   useContext,
   JSX,
 } from "solid-js";
-import { authClient } from "../services/auth";
-import Cookies from 'js-cookie';
+import axios from "axios";
 
 const AuthContext = createContext();
+const baseUrl = "http://localhost:8000";
 
 export const AuthProvider = (
   props: JSX.IntrinsicAttributes & { value: unknown } & {
@@ -21,38 +21,43 @@ export const AuthProvider = (
   // Check if the user is authenticated on page load
   createEffect(() => {
     // Make a request to your Laravel backend to check authentication status
-    authClient
-      .get(`user`, {
+    axios
+      .get(`${baseUrl}/api/user`, {
+        withCredentials: true,
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        withXSRFToken: true,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then((response: { data: any }) => setUser(response.data))
+      .then((response) => setUser(response.data))
       .catch(() => setUser(null));
   });
 
   const login = async (credentials: { email: string; password: string }) => {
     try {
-      // Fetch CSRF token
-      await authClient.get(`sanctum/csrf-cookie`);
-
-      // Make a request to login
-      const response = await authClient.post(`login`, credentials);
-
-      if (!response.data.token) {
-        throw new Error("Login failed");
-      }
-
-      localStorage.setItem("token", response.data.token);
-
-      // Make a request to get user data and update the user state
-      const userResponse = await authClient.get(`user`, {
+      await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+      await axios.post(`${baseUrl}/login`, credentials, {
+        withCredentials: true,
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        withXSRFToken: true,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${response.data.token}`,
+        },
+      });
+
+      const userResponse = await axios.get(`${baseUrl}/api/user`, {
+        withCredentials: true,
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        withXSRFToken: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       });
 
@@ -62,54 +67,59 @@ export const AuthProvider = (
     }
   };
 
-  const register = async (userData: { name: string; email: string; password: string }) => {
+  const register = async (userData: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     try {
-      // Fetch CSRF token
-      await authClient.get(`sanctum/csrf-cookie`);
-      //get crsf from cookies 
-      const cookies = Cookies.get('XSRF-TOKEN')
-    // Make a request to register with the CSRF token in the headers
-    const response = await authClient.post(`register`, userData, {
-      headers: {
-        'X-XSRF-TOKEN': cookies,
-      },
-    });
-  
-      localStorage.setItem("token", response.data.token);
-  
-      // Make a request to get user data and update the user state
-      const userResponse = await authClient.get(`user`, {
+      await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+      await axios.post(`${baseUrl}/register`, userData, {
+        withCredentials: true,
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        withXSRFToken: true,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${response.data.token}`,
         },
       });
-  
+
+      const userResponse = await axios.get(`${baseUrl}/api/user`, {
+        withCredentials: true,
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        withXSRFToken: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
       setUser(userResponse.data);
-      console.log("Registration successful");
     } catch (error) {
-      console.error("Registration failed:", error);
-      // Handle different types of errors appropriately
+      console.error(error);
     }
   };
-  
 
   const logout = async () => {
-    console.log(`logout`);
+    console.log(`${baseUrl}/logout`);
     try {
-      await authClient.post(
-        `logout`,
+      await axios.post(
+        `${baseUrl}/logout`,
         {},
         {
+          withCredentials: true,
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
+          withXSRFToken: true,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Accept: "application/json",
           },
         }
       );
 
-      localStorage.removeItem("token");
       setUser(null);
     } catch (error) {
       console.log(error);
