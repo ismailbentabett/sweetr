@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SweetController;
 use App\Http\Controllers\userInteractionsController;
+use App\Http\Controllers\sweetInteractionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/{sweet}', [SweetController::class, 'show']);
         Route::put('/{sweet}', [SweetController::class, 'update']);
         Route::delete('/{sweet}', [SweetController::class, 'destroy']);
+
+        Route::get('/like', [sweetInteractionsController::class, 'like']);
+        Route::get('/unlike', [ReplyController::class, 'unlike']);
+        Route::get('/bookmark', [ReplyController::class, 'bookmark']);
+        Route::get('unbookmark', [ReplyController::class, 'unBookMark']);
     });
     Route::prefix('comments')->group(function () {
         Route::post('/', [CommentController::class, 'store']);
