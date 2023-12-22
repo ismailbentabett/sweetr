@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\SweetController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\SweetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
