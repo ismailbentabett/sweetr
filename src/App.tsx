@@ -1,9 +1,20 @@
+import { JSX } from "solid-js";
 
-const App = () => {
+const App = (props: {
+  children?:
+    | number
+    | boolean
+    | Node
+    | JSX.ArrayElement
+    | (string & {})
+    | null
+    | undefined;
+}) => {
   return (
-    <>
+    <div>
       <div id="popups" />
-    </>
+      {props.children}
+    </div>
   );
 };
 
