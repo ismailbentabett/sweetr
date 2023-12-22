@@ -3,23 +3,23 @@ import { Component } from "solid-js";
 
 const RegisterScreen: Component = () => {
   return (
-    <div class="flex-it justify-center items-center h-full">
+    <div class="flex-it justify-center items-center h-screen ">
       <div class="text-white text-4xl font-bold">Sweetr - Create Account</div>
-      <div class="mt-10 flex-it h-100 xs:w-100 w-full bg-white p-10 rounded-2xl">
+      <div class="mt-10 flex-it h-100 xs:w-100 w-full bg-gray-800 p-10 rounded-2xl">
         <div class="flex-it">
           <form class="flex-it">
             <div class="flex-it overflow-hidden sm:rounded-md">
               <div class="flex-it">
                 <div class="flex-it">
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-white">
                       Full Name
                     </label>
                     <input
                       type="text"
                       name="fullName"
                       id="fullName"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      class="mt-1 block w-full rounded-md  border-gray-500 text-white bg-gray-800  shadow-sm focus:border-froly-500 focus:ring-froly-500 sm:text-sm"
                     />
                     <div class="flex-it grow text-xs bg-red-400 text-white p-3 pl-3 mt-1 rounded-md">
                       Error Error Beep Beep!
@@ -27,67 +27,55 @@ const RegisterScreen: Component = () => {
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-white">
                       Nick Name
                     </label>
                     <input
                       type="text"
                       name="nickName"
                       id="nickName"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      class="mt-1 block w-full rounded-md  border-gray-500 text-white bg-gray-800  shadow-sm focus:border-froly-500 focus:ring-froly-500 sm:text-sm"
                     />
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-white">
                       Email
                     </label>
                     <input
                       type="text"
                       name="email"
                       id="email"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      class="mt-1 block w-full rounded-md  border-gray-500 text-white bg-gray-800  shadow-sm focus:border-froly-500 focus:ring-froly-500 sm:text-sm"
                     />
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Avatar
-                    </label>
-                    <input
-                      type="text"
-                      name="avatar"
-                      id="avatar"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-white">
                       Password
                     </label>
                     <input
                       type="password"
                       name="password"
                       id="password"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      class="mt-1 block w-full rounded-md  border-gray-500 text-white bg-gray-800  shadow-sm focus:border-froly-500 focus:ring-froly-500 sm:text-sm"
                     />
                   </div>
 
                   <div class="flex-it py-2">
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label class="block text-sm font-medium text-white">
                       Password Confirmation
                     </label>
                     <input
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      class="mt-1 block w-full rounded-md  border-gray-500 text-white bg-gray-800  shadow-sm focus:border-froly-500 focus:ring-froly-500 sm:text-sm"
                     />
                   </div>
                 </div>
               </div>
-              <div class="text-sm text-gray-600 pb-4">
+              <div class="text-sm text-gray-500 pb-4">
                 Already Registered?{" "}
                 <A class="underline" href="/login">
                   Go to Login
