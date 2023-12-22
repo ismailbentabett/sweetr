@@ -3,7 +3,7 @@ import { createSignal, createEffect, createContext, useContext, JSX } from 'soli
 import axios from 'axios';
 
 const AuthContext = createContext();
-const apiUrl = import.meta.env['VITE_API_URL'];
+const baseUrl = import.meta.env.BASE_URL;
 
 export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown } & { children: JSX.Element }) => {
   const [user, setUser] = createSignal(null);
@@ -11,7 +11,7 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
   // Check if the user is authenticated on page load
   createEffect(() => {
     // Make a request to your Laravel backend to check authentication status
-    axios.get(`${apiUrl}/user`, {
+    axios.get(`${baseUrl}/user`, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -24,7 +24,7 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
 
   const login = async (credentials: { email: string; password: string }) => {
     try {
-      const response = await axios.post(`${apiUrl}/login`, credentials);
+      const response = await axios.post(`${baseUrl}/login`, credentials);
 
       if (!response.data.token) {
         throw new Error('Login failed');
@@ -33,7 +33,7 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
       localStorage.setItem('token', response.data.token);
 
       // Make a request to get user data and update the user state
-      const userResponse = await axios.get(`${apiUrl}/user`, {
+      const userResponse = await axios.get(`${baseUrl}/user`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -49,7 +49,7 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
 
   const register = async (userData: { name: string; email: string; password: string }) => {
     try {
-      const response = await axios.post(`${apiUrl}/register`, userData);
+      const response = await axios.post(`${baseUrl}/register`, userData);
 
       if (!response.data.token) {
         throw new Error('Registration failed');
@@ -58,7 +58,7 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
       localStorage.setItem('token', response.data.token);
 
       // Make a request to get user data and update the user state
-      const userResponse = await axios.get(`${apiUrl}/user`, {
+      const userResponse = await axios.get(`${baseUrl}/user`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -74,7 +74,7 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
 
   const logout = async () => {
     try {
-      await axios.post(`${apiUrl}/logout`, {}, {
+      await axios.post(`${baseUrl}/logout`, {}, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
