@@ -5,7 +5,7 @@ import SweetPost from "../components/sweets/SweetPost";
 import { useSweet } from "../context/sweetContext";
 
 const ProfileScreen: Component = () => {
-  const { sweets , createSweet } = useSweet();
+  const { sweets , createSweet } = useSweet() as any;
 
   return (
     <Authenticatedlayout>
