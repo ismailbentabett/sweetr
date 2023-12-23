@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::middleware([])->group(function () {
     Route::prefix('sweets')->group(function () {
         Route::get('/', [SweetController::class, 'index']);
+        Route::get('/my', [SweetController::class, 'userSweets']);
         Route::post('/', [SweetController::class, 'store']);
         Route::get('/{sweet}', [SweetController::class, 'show']);
         Route::put('/{sweet}', [SweetController::class, 'update']);
