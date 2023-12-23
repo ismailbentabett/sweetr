@@ -1,118 +1,136 @@
-import axios from "axios";
-import { JSX, createContext, createSignal, useContext } from "solid-js";
+import { createContext, createSignal, onCleanup, useContext } from "solid-js";
 import { apiClient } from "../services/api";
 import { Sweet } from "../types/Sweet";
 
-const sweetContext = createContext();
+type SweetContextValue = {
+  sweet: Sweet | null;
+  sweets: Sweet[];
+  fetchSweets: () => Promise<void>;
+  createSweet: (data: Sweet) => Promise<void>;
+  getSweet: (id: number | string) => Promise<void>;
+  updateSweet: (id: number | string, data: Sweet) => Promise<void>;
+  deleteSweet: (id: number | string) => Promise<void>;
+  likeSweet: (id: number | string) => Promise<void>;
+  unlikeSweet: (id: number | string) => Promise<void>;
+  bookmarkSweet: (id: number | string) => Promise<void>;
+  unbookmarkSweet: (id: number | string) => Promise<void>;
+};
 
-export const SweetProvider = (
-  props: JSX.IntrinsicAttributes & { value: unknown } & {
-    children: JSX.Element;
-  }
-) => {
-  /*     Route::prefix('sweets')->group(function () {
-        Route::get('/', [SweetController::class, 'index']);
-        Route::post('/', [SweetController::class, 'store']);
-        Route::get('/{sweet}', [SweetController::class, 'show']);
-        Route::put('/{sweet}', [SweetController::class, 'update']);
-        Route::delete('/{sweet}', [SweetController::class, 'destroy']);
+const sweetContext = createContext<SweetContextValue>();
 
-        Route::get('/like', [sweetInteractionsController::class, 'like']);
-        Route::get('/unlike', [ReplyController::class, 'unlike']);
-        Route::get('/bookmark', [ReplyController::class, 'bookmark']);
-        Route::get('unbookmark', [ReplyController::class, 'unBookMark']);
-    }); */
+export const SweetProvider = (props: { children: any }) => {
+  const [sweets, setSweets] = createSignal<Sweet[]>([]);
+  const [sweet, setSweet] = createSignal<Sweet | null>(null);
 
-  /*    Schema::create('sweets', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->text('content');
-            $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        }); */
-
-  const [sweets, setSweets] = createSignal([]);
-  const [sweet, setSweet] = createSignal(null);
-
-  const create = async (data: Sweet) => {
-    const response = await apiClient.post("/api/sweets", data);
+  const fetchSweets = async () => {
+    try {
+      const response = await apiClient.get("/sweets");
+      setSweets(response.data);
+    } catch (error) {
+      console.error("Error fetching sweets:", error);
+    }
   };
 
-  const get = async (id: number | string) => {
-    const response = await apiClient.get(`/api/sweets/${id}`);
-    setSweet(response.data);
+  const createSweet = async (data: Sweet) => {
+    try {
+      const response = await apiClient.post("/sweets", data);
+      setSweets((prevSweets) => [...prevSweets, response.data]);
+    } catch (error) {
+      console.error("Error creating sweet:", error);
+    }
   };
 
-  const getAll = async () => {
-    const response = await apiClient.get("/api/sweets");
-    setSweets(response.data);
+  const getSweet = async (id: number | string) => {
+    try {
+      const response = await apiClient.get(`/sweets/${id}`);
+      setSweet(response.data);
+    } catch (error) {
+      console.error(`Error fetching sweet ${id}:`, error);
+    }
   };
 
-  const update = async (id: number | string, data: Sweet) => {
-    const response = await apiClient.put(`/api/sweets/${id}`, data);
-    setSweets(
-      sweets.map((sweet: { id: string | number }) =>
-        sweet.id === id ? response.data : sweet
-      )
-    );
+  const updateSweet = async (id: number | string, data: Sweet) => {
+    try {
+      const response = await apiClient.put(`/sweets/${id}`, data);
+      setSweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? response.data : s))
+      );
+    } catch (error) {
+      console.error(`Error updating sweet ${id}:`, error);
+    }
   };
 
-  const remove = async (id: number | string) => {
-    await apiClient.delete(`/api/sweets/${id}`);
-    setSweets(
-      sweets.filter((sweet: { id: string | number }) => sweet.id !== id)
-    );
+  const deleteSweet = async (id: number | string) => {
+    try {
+      await apiClient.delete(`/sweets/${id}`);
+      setSweets((prevSweets) => prevSweets.filter((s) => s.id !== id));
+    } catch (error) {
+      console.error(`Error deleting sweet ${id}:`, error);
+    }
   };
 
-  const like = async (id: number | string) => {
-    const response = await apiClient.get(`/api/sweets/like/${id}`);
-    setSweets(
-      sweets.map((sweet: { id: string | number }) =>
-        sweet.id === id ? response.data : sweet
-      )
-    );
+  const likeSweet = async (id: number | string) => {
+    try {
+      const response = await apiClient.get(`/sweets/like/${id}`);
+      setSweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? response.data : s))
+      );
+    } catch (error) {
+      console.error(`Error liking sweet ${id}:`, error);
+    }
   };
 
-  const unlike = async (id: number | string) => {
-    const response = await apiClient.get(`/api/sweets/unlike/${id}`);
-    setSweets(
-      sweets.map((sweet: { id: string | number }) =>
-        sweet.id === id ? response.data : sweet
-      )
-    );
+  const unlikeSweet = async (id: number | string) => {
+    try {
+      const response = await apiClient.get(`/sweets/unlike/${id}`);
+      setSweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? response.data : s))
+      );
+    } catch (error) {
+      console.error(`Error unliking sweet ${id}:`, error);
+    }
   };
 
-  const bookmark = async (id: number | string) => {
-    const response = await apiClient.get(`/api/sweets/bookmark/${id}`);
-    setSweets(
-      sweets.map((sweet: { id: string | number }) =>
-        sweet.id === id ? response.data : sweet
-      )
-    );
+  const bookmarkSweet = async (id: number | string) => {
+    try {
+      const response = await apiClient.get(`/sweets/bookmark/${id}`);
+      setSweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? response.data : s))
+      );
+    } catch (error) {
+      console.error(`Error bookmarking sweet ${id}:`, error);
+    }
   };
 
-  const unbookmark = async (id: number | string) => {
-    const response = await apiClient.get(`/api/sweets/unbookmark/${id}`);
-    setSweets(
-      sweets.map((sweet: { id: string | number }) =>
-        sweet.id === id ? response.data : sweet
-      )
-    );
+  const unbookmarkSweet = async (id: number | string) => {
+    try {
+      const response = await apiClient.get(`/sweets/unbookmark/${id}`);
+      setSweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? response.data : s))
+      );
+    } catch (error) {
+      console.error(`Error unbookmarking sweet ${id}:`, error);
+    }
   };
 
-  const value = {
-    sweet,
-    sweets,
-    create,
-    get,
-    getAll,
-    update,
-    remove,
-    like,
-    unlike,
-    bookmark,
-    unbookmark,
+  const value: SweetContextValue = {
+    sweet: sweet(),
+    sweets: sweets(),
+    fetchSweets,
+    createSweet,
+    getSweet,
+    updateSweet,
+    deleteSweet,
+    likeSweet,
+    unlikeSweet,
+    bookmarkSweet,
+    unbookmarkSweet,
   };
+
+  onCleanup(() => {
+    // Cleanup logic if needed
+  });
+
   return (
     <sweetContext.Provider value={value}>
       {props.children}
