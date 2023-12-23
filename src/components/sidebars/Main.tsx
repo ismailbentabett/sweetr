@@ -8,6 +8,7 @@ import { RiDesignQuillPenLine } from "solid-icons/ri";
 import { JSX } from "solid-js/jsx-runtime";
 import Avatar from "../Avatar";
 import Modal from "../form/modal";
+import { useAuth } from "../../context/authContext";
 
 const MainSidebar: Component = (props ) => {
   const [isOpen, setIsOpen] =  createSignal(false);
@@ -15,6 +16,7 @@ const handleOpenModal = () => {
   setIsOpen(old => !old);
   props.openSideBar(isOpen());
 }
+const {user} = useAuth()
 
   return (
     <header class="lg:flex-grow flex-it items-end">
@@ -90,9 +92,9 @@ const handleOpenModal = () => {
               <Popup
                 opener={() => (
                   <div class="my-3 flex justify-center items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xlcursor-pointer">
-                    <Avatar username={"ismailbentabett"} />
+                    <Avatar username={user().name} />
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
-                      <div class="flex-it mx-3 font-bold">ismailbentabett</div>
+                      <div class="flex-it mx-3 font-bold">{user().name}</div>
                       <div class="flex-it">
                         <FiMoreHorizontal />
                       </div>
