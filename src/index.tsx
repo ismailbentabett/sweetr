@@ -17,6 +17,7 @@ const root = document.getElementById("root");
 
 render(
   () => (
+    // @ts-ignore
     <AuthProvider>
       <SweetProvider>
         <Router root={App}>
