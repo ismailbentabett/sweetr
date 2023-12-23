@@ -5,6 +5,7 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SweetController;
 use App\Http\Controllers\userInteractionsController;
 use App\Http\Controllers\sweetInteractionsController;
+use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,5 +61,6 @@ Route::middleware([])->group(function () {
         Route::post('/unfollow', [userInteractionsController::class, 'unfollow']);
         Route::post('/block', [userInteractionsController::class, 'blockUser']);
         Route::post('/unblock', [userInteractionsController::class, 'unblockUser']);
+        Route::get('/{id}', [userController::class, 'show']);
     });
 });
