@@ -5,7 +5,7 @@ import { A } from "@solidjs/router";
 const NotFound = () => {
   return (
     <div class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
-      <A href="/home" class="-m-1.5 p-1.5">
+      <A href="/" class="-m-1.5 p-1.5">
         <span class="sr-only">Sweetr</span>
         <img class="h-16 w-16 " src="/logo.svg" alt="" />
       </A>{" "}
