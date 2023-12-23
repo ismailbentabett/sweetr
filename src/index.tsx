@@ -12,6 +12,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import { SweetProvider } from "./context/sweetContext";
 import userScreen from "./screens/userScreen";
+import { UserProvider } from "./context/userContext";
 
 const root = document.getElementById("root");
 
@@ -19,16 +20,18 @@ render(
   () => (
     // @ts-ignore
     <AuthProvider>
-      <SweetProvider>
-        <Router root={App}>
-          <Route path="/" component={HomeScreen} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/register" component={RegisterScreen} />
-          <Route path="/profile" component={ProfileScreen} />
-          <Route path="/user/:id" component={userScreen} />
-          <Route path="/:rest*" component={NotFound} />
-        </Router>
-      </SweetProvider>
+      <UserProvider>
+        <SweetProvider>
+          <Router root={App}>
+            <Route path="/" component={HomeScreen} />
+            <Route path="/login" component={LoginScreen} />
+            <Route path="/register" component={RegisterScreen} />
+            <Route path="/profile" component={ProfileScreen} />
+            <Route path="/user/:id" component={userScreen} />
+            <Route path="/:rest*" component={NotFound} />
+          </Router>
+        </SweetProvider>
+      </UserProvider>
     </AuthProvider>
   ),
   root!
