@@ -7,26 +7,41 @@ import {
   DialogOverlay,
 } from "terracotta";
 import type { JSX } from "solid-js";
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, createUniqueId, on } from "solid-js";
+import { FaRegularImage } from "solid-icons/fa";
+import Avatar from "../Avatar";
 
 export default function Modal(props: { isOpen: any }): JSX.Element {
-  const [isOpen, setIsOpen] = createSignal(false);
+  const [isOpen, setIsOpen] = createSignal(props.isOpen);
+  const [content, setContent] = createSignal("");
 
-  //watch teh props for changes
+  const createSweet = () => {
+    const sweet = {
+      id: createUniqueId(),
+      content: content(),
+      user: {
+        nickName: "ismailbentabett",
+        avatar:
+          "https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png",
+      },
+      likesCount: 0,
+      subsweetsCount: 0,
+      date: new Date(),
+    };
+
+    setContent("");
+  };
+
   createEffect(() => {
     setIsOpen(props.isOpen);
-  });
+  }, [props.isOpen]);
 
   function closeModal(): void {
     setIsOpen(false);
   }
 
-  function openModal(): void {
-    setIsOpen(true);
-  }
-
   return (
-    <>
+    <div style={{ "z-index": "2147483647" }}>
       <Transition appear show={isOpen()}>
         <Dialog
           isOpen
@@ -57,34 +72,70 @@ export default function Modal(props: { isOpen: any }): JSX.Element {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <DialogPanel class="inline-block  p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gray-800 text-white shadow-xl rounded-2xl mx-auto max-w-7xl sm:px-6 lg:px-8 w-screen m-10">
                 <DialogTitle
                   as="h3"
-                  class="text-lg font-medium leading-6 text-gray-900"
+                  class="text-lg font-medium leading-6 text-white"
                 >
-                  Payment successful
+                 Sweet Now 
                 </DialogTitle>
-                <div class="mt-2">
-                  <p class="text-sm text-gray-500">
-                    Your payment has been successfully submitted. We’ve sent
-                    your an email with all of the details of your order.
-                  </p>
-                </div>
-
-                <div class="mt-4">
-                  <button
-                    type="button"
-                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeModal}
-                  >
-                    Got it, thanks!
-                  </button>
+                <div class="flex-it py-1 px-4 flex-row">
+                  <div class="flex-it mr-4">
+                    <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
+                      <Avatar username={"ismailbentabett"} />
+                    </div>
+                  </div>
+                  {/* MESSENGER START */}
+                  <div class="flex-it flex-grow">
+                    <div class="flex-it">
+                      <textarea
+                        value={content()}
+                        onInput={(event) => {
+                          setContent(event.currentTarget.value);
+                        }}
+                        name="content"
+                        rows="1"
+                        id="sweet"
+                        class="bg-transparent resize-none overflow-hidden block !outline-none !border-none border-transparent focus:border-transparent focus:ring-0 text-gray-100 text-xl w-full p-0"
+                        placeholder={"What's new?"}
+                      />
+                    </div>
+                    <div class="flex-it mb-1 flex-row xs:justify-between items-center">
+                      <div class="flex-it mt-3 mr-3 cursor-pointer text-white hover:text-froly-400 transition">
+                        <div class="upload-btn-wrapper cursor-pointer">
+                          <FaRegularImage
+                            size={18}
+                            style={{ cursor: "pointer" }}
+                          />
+                          <input
+                            style={{ cursor: "pointer" }}
+                            type="file"
+                            name="myfile"
+                          />
+                        </div>
+                      </div>
+                      <div class="flex-it w-32 mt-3 cursor-pointer">
+                        <button
+                          onClick={createSweet}
+                          type="button"
+                          class="
+                  disabled:cursor-not-allowed disabled:bg-gray-400
+                  bg-froly-400 hover:bg-froly-500 text-white font-bold py-2 px-4 rounded-full flex-it transition duration-200"
+                        >
+                          <div class="flex-it flex-row text-sm font-bold text-white items-start justify-center">
+                            <span>Sweet It</span>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {/* MESSENGER END */}
                 </div>
               </DialogPanel>
             </TransitionChild>
           </div>
         </Dialog>
       </Transition>
-    </>
+    </div>
   );
 }
