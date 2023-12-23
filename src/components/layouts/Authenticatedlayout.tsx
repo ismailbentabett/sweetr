@@ -1,11 +1,11 @@
 // components/Authenticatedlayout.tsx
 
+import { useNavigate } from "@solidjs/router";
 import { JSX } from "solid-js/jsx-runtime";
+import { useAuth } from "../../context/authContext";
 import MainSidebar from "../sidebars/Main";
 import TrendsSidebar from "../sidebars/Trends";
-import { useNavigate } from "@solidjs/router";
-import { useAuth } from "../../context/authContext";
-import { createComputed, createDeferred, createEffect, onCleanup } from "solid-js";
+import { createDeferred, createEffect, createMemo } from "solid-js";
 
 interface AuthenticatedlayoutProps {
   children:
@@ -19,13 +19,11 @@ interface AuthenticatedlayoutProps {
 }
 
 const Authenticatedlayout = (props: AuthenticatedlayoutProps) => {
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-const delayedIsAuthenticated = createDeferred(isAuthenticated);
+  createEffect(() => {
 
-  createComputed(() => {
-    if (!delayedIsAuthenticated()) {
+    if (localStorage.getItem("isAuthenticated") === "false") {
       navigate("/login");
     }
   });
