@@ -9,15 +9,16 @@ import { JSX } from "solid-js/jsx-runtime";
 import Avatar from "../Avatar";
 import Modal from "../form/modal";
 
-const MainSidebar: Component = () => {
-  const [isOpen, setIsOpen] = createSignal(false);
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
+const MainSidebar: Component = (props ) => {
+  const [isOpen, setIsOpen] =  createSignal(false);
+const handleOpenModal = () => {
+  setIsOpen(old => !old);
+  props.openSideBar(isOpen());
+}
 
   return (
     <header class="lg:flex-grow flex-it items-end">
-      <Modal isOpen={isOpen()} />
+       
       <div class="xl:w-80 w-20 flex-it">
         <div class="h-full fixed flex-it top-0">
           <div class="flex-it h-full xl:w-80 w-20 overflow-y-auto px-3 justify-between">
@@ -72,8 +73,7 @@ const MainSidebar: Component = () => {
                 <div class="bg-froly-400 hover:bg-froly-500 text-white font-bold py-2 px-4 rounded-full flex-it transition">
                   <button
                     onClick={handleOpenModal}
-                    class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200"
-                  >
+                  class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200">
                     <Show
                       when={pageSize.isXl()}
                       fallback={<RiDesignQuillPenLine />}
