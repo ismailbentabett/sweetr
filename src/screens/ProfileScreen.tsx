@@ -1,8 +1,12 @@
-import { Component } from "solid-js";
+import { Component, For } from "solid-js";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import Avatar from "../components/Avatar";
+import SweetPost from "../components/sweets/SweetPost";
+import { useSweet } from "../context/sweetContext";
 
 const ProfileScreen: Component = () => {
+  const { sweets , createSweet } = useSweet();
+
   return (
     <Authenticatedlayout>
       <div class="text-white">
@@ -97,6 +101,11 @@ const ProfileScreen: Component = () => {
               </div>
             </dl>
           </div>
+          <For each={sweets()} fallback={<div></div>} >
+        { (sweet) =>
+          <SweetPost sweet={sweet} />
+        }
+      </For> 
       </div>
     </Authenticatedlayout>
   );
