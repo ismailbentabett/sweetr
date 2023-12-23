@@ -12,14 +12,14 @@ const userScreen: Component = () => {
   const userId = params.id;
   const navigate = useNavigate();
 
-  const { user } = useAuth();
+  const { user } = useAuth() as any;
   createEffect(() => {
     if (user().id !== userId) {
       navigate("/profile");
     }
   });
 
-  const { userSweets, fetchUserSweets } = useSweet();
+  const { userSweets, fetchUserSweets } = useSweet() as any;
 
   createEffect(() => {
     fetchUserSweets(userId);
