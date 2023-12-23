@@ -1,10 +1,11 @@
 import { createAvatar } from "@dicebear/core";
-import {  thumbs } from "@dicebear/collection";
+import { thumbs } from "@dicebear/collection";
 import { createEffect, createSignal } from "solid-js";
 import { Show } from "solid-js";
 
 interface AvatarProps {
   username: any;
+  size?: number; // Add the size prop
 }
 
 function Avatar(props: AvatarProps) {
@@ -13,7 +14,7 @@ function Avatar(props: AvatarProps) {
   createEffect(() => {
     const svg = createAvatar(thumbs, {
       seed: props.username,
-      size: 50,
+      size: props.size || 40, // Use the provided size or default to 50
     }).toDataUriSync();
 
     setAvatar(svg);
@@ -22,7 +23,7 @@ function Avatar(props: AvatarProps) {
   return (
     <div>
       <Show when={avatar()}>
-        <div class="w-10 h-10 overflow-visible">
+        <div class={`w-${props.size} h-${props.size} overflow-visible`}>
           <img
             class="rounded-full"
             src={avatar()}
