@@ -92,9 +92,9 @@ const {user} = useAuth()
               <Popup
                 opener={() => (
                   <div class="my-3 flex justify-center items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xlcursor-pointer">
-                    <Avatar username={user().name} />
+                    <Avatar username="ismailbentabett" />
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
-                      <div class="flex-it mx-3 font-bold">{user().name}</div>
+                      <div class="flex-it mx-3 font-bold">"ismailbentabett"</div>
                       <div class="flex-it">
                         <FiMoreHorizontal />
                       </div>
