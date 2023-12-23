@@ -21,9 +21,12 @@ const Popup: Component<Props> = ({ opener: Opener }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-     logout();
+     logout().then(() => {
+      localStorage.removeItem("user");
+      localStorage.removeItem("isAuthenticated");
+      navigate("/login");
+    });
     setIsOpen(false);
-    navigate("/login");
   };
 
   let followTo: HTMLDivElement;
