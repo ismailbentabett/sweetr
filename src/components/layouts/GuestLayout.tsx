@@ -3,7 +3,7 @@
 import { useNavigate } from "@solidjs/router";
 import { JSX } from "solid-js/jsx-runtime";
 import { useAuth } from "../../context/authContext";
-import { createComputed, createDeferred, createEffect } from "solid-js";
+import { createEffect } from "solid-js";
 
 interface GuestLayoutProps {
   children:
@@ -19,13 +19,15 @@ interface GuestLayoutProps {
 const GuestLayout = (props: GuestLayoutProps) => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-const delayedIsAuthenticated = createDeferred(isAuthenticated);
 
-  createComputed(() => {
-    if (delayedIsAuthenticated()) {
+ 
+
+  createEffect(() => {
+    if (isAuthenticated() || localStorage.getItem("isAuthenticated") === "true") {
       navigate("/");
     }
-  });
+  }
+  );
 
   return <>{props.children}</>;
 };
