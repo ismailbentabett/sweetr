@@ -33,10 +33,14 @@ export const AuthProvider = (
       })
       .then((response) => {
         setUser(response.data);
-        console.log(response.data); 
+        console.log(response.data);
         if (user()) {
+          localStorage.setItem("user", JSON.stringify(user()));
+          localStorage.setItem("isAuthenticated", "true");
           setIsAuthenticated(true);
         } else {
+          localStorage.removeItem("user");
+          localStorage.removeItem("isAuthenticated");
           setIsAuthenticated(false);
         }
       })
@@ -132,6 +136,9 @@ export const AuthProvider = (
       );
 
       setUser(null);
+      setIsAuthenticated(false);
+      localStorage.removeItem("user");
+      localStorage.removeItem("isAuthenticated");
     } catch (error) {
       console.log(error);
     }
