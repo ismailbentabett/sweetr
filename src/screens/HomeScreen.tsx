@@ -8,8 +8,8 @@ import useForm from "../hooks/useForm";
 import SweetPost from "../components/sweets/SweetPost";
 
 const HomeScreen: Component = () => {
-  const { user } = useAuth();
-  const { sweets , createSweet } = useSweet();
+  const { user } = useAuth() as any;
+  const { sweets , createSweet } = useSweet() as any;
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     content: "",
   });
