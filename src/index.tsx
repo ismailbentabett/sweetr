@@ -11,6 +11,7 @@ import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import { SweetProvider } from "./context/sweetContext";
+import userScreen from "./screens/userScreen";
 
 const root = document.getElementById("root");
 
@@ -23,6 +24,7 @@ render(
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
+          <Route path="/user/:id" component={userScreen} />
           <Route path="/:rest*" component={NotFound} />
         </Router>
       </SweetProvider>
