@@ -17,7 +17,7 @@ interface GuestLayoutProps {
 }
 
 const GuestLayout = (props: GuestLayoutProps) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth() as any;
   const navigate = useNavigate();
 
  
