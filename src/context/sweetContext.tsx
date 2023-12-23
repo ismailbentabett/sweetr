@@ -5,8 +5,10 @@ import {
   onCleanup,
   useContext,
 } from "solid-js";
-import { apiClient } from "../services/api";
 import { Sweet } from "../types/Sweet";
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8000/api";
+axios.defaults.withCredentials = true;
 
 type SweetContextValue = {
   sweet: any;
@@ -37,7 +39,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const fetchSweets = async () => {
     try {
-      const response = await apiClient.get("/sweets");
+      const response = await axios.get("/sweets");
       setSweets(response.data);
     } catch (error) {
       console.error("Error fetching sweets:", error);
@@ -45,7 +47,7 @@ export const SweetProvider = (props: { children: any }) => {
   };
   const fetchMySweets = async () => {
     try {
-      const response = await apiClient.get("/sweets/my");
+      const response = await axios.get("/sweets/my");
       setmySweets(response.data);
     } catch (error) {
       console.error("Error fetching sweets:", error);
@@ -53,7 +55,7 @@ export const SweetProvider = (props: { children: any }) => {
   };
   const fetchUserSweets = async (id: string) => {
     try {
-      const response = await apiClient.get("/sweets/user/" + id);
+      const response = await axios.get("/sweets/user/" + id);
       setuserSweets(response.data);
     } catch (error) {
       console.error("Error fetching sweets:", error);
@@ -66,7 +68,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const createSweet = async (data: Sweet) => {
     try {
-      const response = await apiClient.post("/sweets", data);
+      const response = await axios.post("/sweets", data);
       console.log(response.data);
       setSweets((prevSweets) => [...prevSweets, response.data]);
     } catch (error) {
@@ -76,7 +78,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const getSweet = async (id: number | string) => {
     try {
-      const response = await apiClient.get(`/sweets/${id}`);
+      const response = await axios.get(`/sweets/${id}`);
       setSweet(response.data);
     } catch (error) {
       console.error(`Error fetching sweet ${id}:`, error);
@@ -85,7 +87,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const updateSweet = async (id: number | string, data: Sweet) => {
     try {
-      const response = await apiClient.put(`/sweets/${id}`, data);
+      const response = await axios.put(`/sweets/${id}`, data);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -96,7 +98,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const deleteSweet = async (id: number | string) => {
     try {
-      await apiClient.delete(`/sweets/${id}`);
+      await axios.delete(`/sweets/${id}`);
       setSweets((prevSweets) => prevSweets.filter((s) => s.id !== id));
     } catch (error) {
       console.error(`Error deleting sweet ${id}:`, error);
@@ -105,7 +107,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const likeSweet = async (id: number | string) => {
     try {
-      const response = await apiClient.get(`/sweets/like/${id}`);
+      const response = await axios.get(`/sweets/like/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -116,7 +118,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const unlikeSweet = async (id: number | string) => {
     try {
-      const response = await apiClient.get(`/sweets/unlike/${id}`);
+      const response = await axios.get(`/sweets/unlike/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -127,7 +129,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const bookmarkSweet = async (id: number | string) => {
     try {
-      const response = await apiClient.get(`/sweets/bookmark/${id}`);
+      const response = await axios.get(`/sweets/bookmark/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -138,7 +140,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const unbookmarkSweet = async (id: number | string) => {
     try {
-      const response = await apiClient.get(`/sweets/unbookmark/${id}`);
+      const response = await axios.get(`/sweets/unbookmark/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
