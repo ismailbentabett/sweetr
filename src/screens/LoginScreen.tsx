@@ -8,7 +8,7 @@ import GuestLayout from "../components/layouts/GuestLayout";
 
 const LoginScreen: Component = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login } = useAuth() as any;
 
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     email: "",
