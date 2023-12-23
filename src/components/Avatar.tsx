@@ -9,7 +9,7 @@ interface AvatarProps {
 }
 
 function Avatar(props: AvatarProps) {
-  const [avatar, setAvatar] = createSignal<string>(null);
+  const [avatar, setAvatar] = createSignal<string>("");
 
   createEffect(() => {
     const svg = createAvatar(thumbs, {
