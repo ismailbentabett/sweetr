@@ -4,18 +4,19 @@ import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import SweetPost from "../components/sweets/SweetPost";
 import { Sweet } from "../types/Sweet";
+import { useAuth } from "../context/authContext";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [sweets, setSweets] = createSignal<Sweet[]>([]);
 
-
+const {user} = useAuth()
   const createSweet = () => {
     const sweet = {
       id: createUniqueId(),
       content: content(),
       user: {
-        nickName: "ismailbentabett",
+        nickName: user().name,
         avatar: "https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
       },
       likesCount: 0,
@@ -33,7 +34,7 @@ const HomeScreen: Component = () => {
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-          <Avatar username={"ismailbentabett"}  />
+          <Avatar username={user().name} />
 
           </div>
         </div>
