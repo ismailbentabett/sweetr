@@ -1,22 +1,19 @@
 import { A } from "@solidjs/router";
 import { FiMoreHorizontal } from "solid-icons/fi";
+import { RiDesignQuillPenLine } from "solid-icons/ri";
 import { Component, For, Show, createSignal } from "solid-js";
+import { JSX } from "solid-js/jsx-runtime";
+import pageSize from "../../helpers/pageSize";
+import Avatar from "../Avatar";
 import Popup from "../utils/Popup";
 import { links } from "./links";
-import pageSize from "../../helpers/pageSize";
-import { RiDesignQuillPenLine } from "solid-icons/ri";
-import { JSX } from "solid-js/jsx-runtime";
-import Avatar from "../Avatar";
-import Modal from "../form/modal";
-import { useAuth } from "../../context/authContext";
 
-const MainSidebar: Component = (props ) => {
+const MainSidebar: Component = (props : any) => {
   const [isOpen, setIsOpen] =  createSignal(false);
 const handleOpenModal = () => {
   setIsOpen(old => !old);
   props.openSideBar(isOpen());
 }
-const {user} = useAuth()
 
   return (
     <header class="lg:flex-grow flex-it items-end">
@@ -112,3 +109,7 @@ const {user} = useAuth()
 };
 
 export default MainSidebar;
+function props(props: {}): Element {
+  throw new Error("Function not implemented.");
+}
+
