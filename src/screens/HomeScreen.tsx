@@ -1,32 +1,22 @@
 import { FaRegularImage } from "solid-icons/fa";
-import { Component, createSignal, createUniqueId, For } from "solid-js";
+import { Component } from "solid-js";
 import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
-import SweetPost from "../components/sweets/SweetPost";
-import { Sweet } from "../types/Sweet";
 import { useAuth } from "../context/authContext";
+import { useSweet } from "../context/sweetContext";
+import useForm from "../hooks/useForm";
 
 const HomeScreen: Component = () => {
-  const [content, setContent] = createSignal("");
-  const [sweets, setSweets] = createSignal<Sweet[]>([]);
+  const { user } = useAuth();
+  const { createSweet } = useSweet();
+  const { values, errors, isValid, handleChange, handleSubmit } = useForm({
+    content: "",
+  });
 
-const {user} = useAuth()
-  const createSweet = () => {
-    const sweet = {
-      id: createUniqueId(),
-      content: content(),
-      user: {
-        nickName: user().name,
-        avatar: "https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
-      },
-      likesCount: 0,
-      subsweetsCount: 0,
-      date: new Date()
-    }
 
-    setSweets([sweet, ...sweets()]);
-    setContent("");
-  }
+  const handleCreateSweet = () => {
+    createSweet({ content: values().content, user_id: user().id });
+  };
 
   return (
     <Authenticatedlayout>
@@ -34,18 +24,17 @@ const {user} = useAuth()
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-          <Avatar username="ismailbentabett" />
-
+            <Avatar username="ismailbentabett" />
           </div>
         </div>
         {/* MESSENGER START */}
         <div class="flex-it flex-grow">
           <div class="flex-it">
             <textarea
-              value={content()}
-              onInput={(event) => {
-                setContent(event.currentTarget.value);
-              }}
+              value={values().content}
+              onInput={(e: { target: { value: any } }) =>
+                handleChange("content", e.target.value)
+              }
               name="content"
               rows="1"
               id="sweet"
@@ -56,13 +45,17 @@ const {user} = useAuth()
           <div class="flex-it mb-1 flex-row xs:justify-between items-center">
             <div class="flex-it mt-3 mr-3 cursor-pointer text-white hover:text-froly-400 transition">
               <div class="upload-btn-wrapper cursor-pointer">
-              <FaRegularImage size={18} style={{ cursor: 'pointer' }} />
-                <input style={{ cursor: 'pointer' }} type="file" name="myfile" />
+                <FaRegularImage size={18} style={{ cursor: "pointer" }} />
+                <input
+                  style={{ cursor: "pointer" }}
+                  type="file"
+                  name="myfile"
+                />
               </div>
             </div>
             <div class="flex-it w-32 mt-3 cursor-pointer">
               <button
-                onClick={createSweet}
+                onClick={handleCreateSweet}
                 type="button"
                 class="
                   disabled:cursor-not-allowed disabled:bg-gray-400
@@ -78,11 +71,11 @@ const {user} = useAuth()
         {/* MESSENGER END */}
       </div>
       <div class="h-px bg-gray-700 my-1" />
-      <For each={sweets()}>
+      {/*    <For each={sweets()}>
         { (sweet) =>
           <SweetPost sweet={sweet} />
         }
-      </For>
+      </For> */}
       {/* HOME PAGE END */}
     </Authenticatedlayout>
   );
