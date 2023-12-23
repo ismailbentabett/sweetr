@@ -15,11 +15,7 @@ export const links = [
     href: "/profile",
     icon: () => <CgProfile size={SIZE} />,
   },
-  {
-    name: "More",
-    href: "/more",
-    icon: () => <CgMoreO size={SIZE} />,
-  },
+
   {
     name: "Saved",
     href: "/saved",
@@ -29,5 +25,10 @@ export const links = [
     name: "Liked",
     href: "/liked",
     icon: () => <BsHeart size={SIZE} />,
+  },
+  {
+    name: "More",
+    href: "/more",
+    icon: () => <CgMoreO size={SIZE} />,
   },
 ];
