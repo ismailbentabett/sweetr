@@ -47,7 +47,7 @@ const Authenticatedlayout = (props: AuthenticatedlayoutProps) => {
         {/* Tweets Feed */}
         <main class="flex-1 p-4  border-x-1 border-solid border-gray-700  xl:max-w-3xl">
         <div class="flex-it h-14 p-4 xl:text-xl text-sm font-bold z-10 backdrop-blur-md bg-opacity-70">
-                      Home
+                      Sweetr
                     </div>
           {props.children}
         </main>
