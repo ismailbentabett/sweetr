@@ -33,7 +33,6 @@ export const AuthProvider = (
       })
       .then((response) => {
         setUser(response.data);
-        console.log(response.data);
         if (user()) {
           localStorage.setItem("user", JSON.stringify(user()));
           localStorage.setItem("isAuthenticated", "true");
@@ -118,7 +117,6 @@ export const AuthProvider = (
   };
 
   const logout = async () => {
-    console.log(`${baseUrl}/logout`);
     try {
       await axios.post(
         `${baseUrl}/logout`,
@@ -140,7 +138,6 @@ export const AuthProvider = (
       localStorage.removeItem("user");
       localStorage.removeItem("isAuthenticated");
     } catch (error) {
-      console.log(error);
     }
   };
 

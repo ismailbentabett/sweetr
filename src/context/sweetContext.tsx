@@ -13,8 +13,8 @@ axios.defaults.withCredentials = true;
 type SweetContextValue = {
   sweet: any;
   sweets: any;
-  mySweets:any;
-  userSweets:any;
+  mySweets: any;
+  userSweets: any;
   fetchSweets: () => Promise<void>;
   createSweet: (data: Sweet) => Promise<void>;
   getSweet: (id: number | string) => Promise<void>;
@@ -69,7 +69,6 @@ export const SweetProvider = (props: { children: any }) => {
   const createSweet = async (data: Sweet) => {
     try {
       const response = await axios.post("/sweets", data);
-      console.log(response.data);
       setSweets((prevSweets) => [...prevSweets, response.data]);
     } catch (error) {
       console.error("Error creating sweet:", error);
