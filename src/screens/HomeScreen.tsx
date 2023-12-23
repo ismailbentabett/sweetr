@@ -34,7 +34,7 @@ const {user} = useAuth()
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-          <Avatar username={user().name} />
+          <Avatar username="ismailbentabett" />
 
           </div>
         </div>
