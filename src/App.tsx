@@ -45,7 +45,6 @@ const App = (props: {
         loadingBar={loadingBar()}
         setLoadingBar={setLoadingBar}
       />
-     
       <div id="popups" />
       {props.children}
     </div>
