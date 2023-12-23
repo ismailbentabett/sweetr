@@ -1,7 +1,6 @@
 import axios from "axios";
-import { JSX, createSignal, onCleanup } from "solid-js";
+import { JSX, createSignal } from "solid-js";
 import LoadingBar, { LoadingBarRef } from "solid-top-loading-bar";
-import Modal from "./components/form/modal";
 const App = (props: {
   children?:
     | number
