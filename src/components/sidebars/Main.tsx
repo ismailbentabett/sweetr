@@ -1,16 +1,23 @@
 import { A } from "@solidjs/router";
 import { FiMoreHorizontal } from "solid-icons/fi";
-import { Component, For, Show } from "solid-js";
+import { Component, For, Show, createSignal } from "solid-js";
 import Popup from "../utils/Popup";
 import { links } from "./links";
 import pageSize from "../../helpers/pageSize";
 import { RiDesignQuillPenLine } from "solid-icons/ri";
 import { JSX } from "solid-js/jsx-runtime";
 import Avatar from "../Avatar";
+import Modal from "../form/modal";
 
 const MainSidebar: Component = () => {
+  const [isOpen, setIsOpen] = createSignal(false);
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <header class="lg:flex-grow flex-it items-end">
+      <Modal isOpen={isOpen()} />
       <div class="xl:w-80 w-20 flex-it">
         <div class="h-full fixed flex-it top-0">
           <div class="flex-it h-full xl:w-80 w-20 overflow-y-auto px-3 justify-between">
@@ -63,14 +70,17 @@ const MainSidebar: Component = () => {
               {/* sweetR SEND-MESSAGE BUTTON */}
               <div class="my-1 flex-it w-10/12 cursor-pointer">
                 <div class="bg-froly-400 hover:bg-froly-500 text-white font-bold py-2 px-4 rounded-full flex-it transition">
-                  <div class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200">
+                  <button
+                    onClick={handleOpenModal}
+                    class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200"
+                  >
                     <Show
                       when={pageSize.isXl()}
                       fallback={<RiDesignQuillPenLine />}
                     >
                       <div>Sweet It</div>
                     </Show>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
