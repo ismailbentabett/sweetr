@@ -11,7 +11,7 @@ type Props = {
 };
 
 const SweetPost = (props: { sweet: Sweet }) => {
-const {user} = useAuth();
+const {user} = useAuth() as any;
   const sweet = () => props.sweet;
   /* const user = () => sweet().user; */
 
