@@ -1,14 +1,15 @@
 import { FaRegularImage } from "solid-icons/fa";
-import { Component } from "solid-js";
+import { Component, For } from "solid-js";
 import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import { useAuth } from "../context/authContext";
 import { useSweet } from "../context/sweetContext";
 import useForm from "../hooks/useForm";
+import SweetPost from "../components/sweets/SweetPost";
 
 const HomeScreen: Component = () => {
   const { user } = useAuth();
-  const { createSweet } = useSweet();
+  const { sweets , createSweet } = useSweet();
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     content: "",
   });
@@ -71,11 +72,12 @@ const HomeScreen: Component = () => {
         {/* MESSENGER END */}
       </div>
       <div class="h-px bg-gray-700 my-1" />
-      {/*    <For each={sweets()}>
+ 
+       <For each={sweets()} fallback={<div></div>} >
         { (sweet) =>
           <SweetPost sweet={sweet} />
         }
-      </For> */}
+      </For> 
       {/* HOME PAGE END */}
     </Authenticatedlayout>
   );
