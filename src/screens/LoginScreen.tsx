@@ -18,10 +18,10 @@ const LoginScreen: Component = () => {
   const handleLogin = async () => {
     try {
       // Call the login function from the AuthContext
-      await login({ email: values().email, password: values().password });
-
+      login({ email: values().email, password: values().password }).then(() => {
+        navigate("/");
+      });
       // Redirect to the dashboard after successful login
-      navigate('/');
     } catch (error) {
       // Handle login error here (e.g., display an error message)
       console.error("Login failed:", error);
@@ -44,7 +44,9 @@ const LoginScreen: Component = () => {
                       type="text"
                       value={values().email}
                       error={errors().email}
-                      onInput={(e: { target: { value: any } }) => handleChange("email", e.target.value)}
+                      onInput={(e: { target: { value: any } }) =>
+                        handleChange("email", e.target.value)
+                      }
                     />
 
                     <Input
@@ -53,7 +55,9 @@ const LoginScreen: Component = () => {
                       type="password"
                       value={values().password}
                       error={errors().password}
-                      onInput={(e: { target: { value: any } }) => handleChange("password", e.target.value)}
+                      onInput={(e: { target: { value: any } }) =>
+                        handleChange("password", e.target.value)
+                      }
                     />
                   </div>
                 </div>
