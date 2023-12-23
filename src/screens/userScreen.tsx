@@ -1,17 +1,19 @@
 import { useNavigate, useParams } from "@solidjs/router";
-import { Component, For, Show, createEffect } from "solid-js";
+import { Component, For, Show, createEffect, createSignal } from "solid-js";
 import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import SweetPost from "../components/sweets/SweetPost";
 import { useSweet } from "../context/sweetContext";
 import { useUser } from "../context/userContext";
+import { useAuth } from "../context/authContext";
 
 const userScreen: Component = () => {
   //get user id from url
   const params = useParams();
   const userId = params.id;
 
-  const { user , getUser } = useUser() as any;
+  const { user, getUser } = useUser() as any;
+  const { user: authUser } = useAuth() as any;
   const navigate = useNavigate();
 
   const { userSweets, fetchUserSweets } = useSweet() as any;
@@ -20,15 +22,24 @@ const userScreen: Component = () => {
     fetchUserSweets(userId);
     getUser(userId);
 
-    if(userId == user().user.id){
-     
-        navigate("/profile");
-      }
+    if (userId == authUser().id) {
+      navigate("/profile");
+    }
   });
+
+  const [isFollowing, setIsFollowing] = createSignal(true);
+
+  function handleMouseOver() {
+    setIsFollowing(false);
+  }
+
+  function handleMouseOut() {
+    setIsFollowing(true);
+  }
 
   return (
     <Authenticatedlayout>
-      <Show when={user() }>
+      <Show when={user()}>
         <div class="text-white">
           <div>
             <img
@@ -47,36 +58,47 @@ const userScreen: Component = () => {
               <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                 <div class="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
                   <h1 class="truncate text-2xl font-bold text-white">
-                  {user().user.name}
-
+                    {user().user.name}
                   </h1>
                   <p class="text-sm font-medium text-gray-400">
-                    @              {user().user.name}
-
+                    @ {user().user.name}
                   </p>
                 </div>
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                   <button
                     type="button"
-                    class="inline-flex justify-center rounded-3xl border border-white-300  px-7 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+                    class="inline-flex justify-center rounded-3xl border border-white-300 bg-white text-gray-900  px-7 py-2 text-sm font-medium  shadow-sm hover:bg-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                   >
-                    <span class="font-bold text-white">Edit Profile</span>
+                    <span class="font-bold text-gray-900">Follow</span>
+                  </button>
+                  <button
+                    type="button"
+                    class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
+                      isFollowing() ? "" : "unfollow"
+                    }`}
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                  >
+                    <span class="font-bold text-white hover:text-red-600">
+                      {isFollowing() ? "Following" : "Unfollow"}
+                    </span>
                   </button>
                 </div>
               </div>
             </div>
             <div class="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
               <h1 class="truncate text-2xl font-bold text-white">
-              {user().user.name}
+                {user().user.name}
               </h1>
-              <p class="text-sm font-medium text-gray-400">@              {user().user.name}
-</p>
+              <p class="text-sm font-medium text-gray-400">
+                @ {user().user.name}
+              </p>
             </div>
           </div>
 
           <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-            <div class="sm:col-span-2">
+              <div class="sm:col-span-2">
                 <dt class="text-sm font-medium text-gray-500">About</dt>
                 <dd class="mt-1 max-w-prose space-y-5 text-sm text-white">
                   <p>
@@ -130,8 +152,6 @@ const userScreen: Component = () => {
                 <dt class="text-sm font-medium text-gray-500">Birthday</dt>
                 <dd class="mt-1 text-sm text-white">June 8, 1990</dd>
               </div>
-
-          
             </dl>
           </div>
           <For each={userSweets()} fallback={<div></div>}>
