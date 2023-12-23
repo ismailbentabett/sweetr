@@ -1,5 +1,6 @@
 import axios from "axios";
 import { JSX, createSignal } from "solid-js";
+// @ts-ignore
 import LoadingBar, { LoadingBarRef } from "solid-top-loading-bar";
 const App = (props: {
   children?:
