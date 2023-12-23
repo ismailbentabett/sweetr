@@ -1,10 +1,10 @@
-import { createContext, createSignal, onCleanup, useContext } from "solid-js";
+import { createContext, createEffect, createSignal, onCleanup, useContext } from "solid-js";
 import { apiClient } from "../services/api";
 import { Sweet } from "../types/Sweet";
 
 type SweetContextValue = {
-  sweet: Sweet | null;
-  sweets: Sweet[];
+  sweet: any
+  sweets: any
   fetchSweets: () => Promise<void>;
   createSweet: (data: Sweet) => Promise<void>;
   getSweet: (id: number | string) => Promise<void>;
@@ -22,6 +22,8 @@ export const SweetProvider = (props: { children: any }) => {
   const [sweets, setSweets] = createSignal<Sweet[]>([]);
   const [sweet, setSweet] = createSignal<Sweet | null>(null);
 
+  const [userSweet, setUserSweet] = createSignal<Sweet | null>(null);
+
   const fetchSweets = async () => {
     try {
       const response = await apiClient.get("/sweets");
@@ -30,6 +32,19 @@ export const SweetProvider = (props: { children: any }) => {
       console.error("Error fetching sweets:", error);
     }
   };
+  const fetchUserSweets = async () => {
+    try {
+      const response = await apiClient.get("/sweets/my");
+      setUserSweet(response.data);
+    } catch (error) {
+      console.error("Error fetching sweets:", error);
+    }
+  };
+
+  createEffect(() => {
+    fetchSweets();
+    fetchUserSweets();
+  });
 
   const createSweet = async (data: Sweet) => {
     try {
@@ -115,8 +130,8 @@ export const SweetProvider = (props: { children: any }) => {
   };
 
   const value: SweetContextValue = {
-    sweet: sweet(),
-    sweets: sweets(),
+    sweet,
+    sweets,
     fetchSweets,
     createSweet,
     getSweet,
