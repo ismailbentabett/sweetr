@@ -1,6 +1,7 @@
 import axios from "axios";
 import { JSX, createSignal, onCleanup } from "solid-js";
 import LoadingBar, { LoadingBarRef } from "solid-top-loading-bar";
+import Modal from "./components/form/modal";
 const App = (props: {
   children?:
     | number
@@ -44,7 +45,7 @@ const App = (props: {
         loadingBar={loadingBar()}
         setLoadingBar={setLoadingBar}
       />
-
+     
       <div id="popups" />
       {props.children}
     </div>
