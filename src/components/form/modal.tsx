@@ -10,11 +10,12 @@ import type { JSX } from "solid-js";
 import { createEffect, createSignal, createUniqueId, on } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 import Avatar from "../Avatar";
+import { useAuth } from "../../context/authContext";
 
 export default function Modal(props: { isOpen: any }): JSX.Element {
   const [isOpen, setIsOpen] = createSignal(props.isOpen);
   const [content, setContent] = createSignal("");
-
+const {user} = useAuth()
   const createSweet = () => {
     const sweet = {
       id: createUniqueId(),
