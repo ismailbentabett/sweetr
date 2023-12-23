@@ -16,7 +16,14 @@ class SweetController extends Controller
 
         return response()->json($sweets);
     }
-    public function userSweets()
+    public function userSweets($id)
+    {
+        $sweets = Sweet::where('user_id', $id)->with('user')->latest()->get();
+
+        return response()->json($sweets);
+    }
+
+    public function mySweets()
     {
         $sweets = Sweet::where('user_id', Auth::user()->id)->with('user')->latest()->get();
 
