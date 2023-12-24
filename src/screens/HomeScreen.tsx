@@ -17,6 +17,8 @@ const HomeScreen: Component = () => {
 
   const handleCreateSweet = () => {
     createSweet({ content: values().content, user_id: user().id });
+    //empty the textarea
+    handleChange("content", "");
   };
 
   return (
