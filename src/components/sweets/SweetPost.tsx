@@ -7,6 +7,7 @@ import { useAuth } from "../../context/authContext";
 import { Show } from "solid-js";
 import { useSweet } from "../../context/sweetContext";
 import { BsBookmark, BsBookmarkFill } from "solid-icons/bs";
+import SweetPostSkeleton from "../skeletons/SweetPostSkeleton";
 
 type Props = {
   sweet: Sweet;
@@ -36,7 +37,7 @@ const SweetPost = (props: { sweet: Sweet }) => {
   };
 
   return (
-    <Show when={user() !== null} fallback={<div>Loading...</div>}>
+    <Show when={user() !== null}fallback={<div><SweetPostSkeleton/></div>}>
       <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
         <div class="flex-it flex-row">
           <div class="flex-it mr-4">
