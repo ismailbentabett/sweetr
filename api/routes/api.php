@@ -59,8 +59,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('user')->group(function () {
-        Route::post('/follow', [userInteractionsController::class, 'follow']);
-        Route::post('/unfollow', [userInteractionsController::class, 'unfollow']);
+        Route::post('/follow/{id}', [userInteractionsController::class, 'follow']);
+        Route::post('/unfollow/{id}', [userInteractionsController::class, 'unfollow']);
         Route::post('/block', [userInteractionsController::class, 'blockUser']);
         Route::post('/unblock', [userInteractionsController::class, 'unblockUser']);
         Route::get('/{id}', [userController::class, 'show']);
