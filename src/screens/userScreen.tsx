@@ -3,9 +3,9 @@ import { Component, For, Show, createEffect, createSignal } from "solid-js";
 import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import SweetPost from "../components/sweets/SweetPost";
+import { useAuth } from "../context/authContext";
 import { useSweet } from "../context/sweetContext";
 import { useUser } from "../context/userContext";
-import { useAuth } from "../context/authContext";
 
 const userScreen: Component = () => {
   //get user id from url
@@ -17,10 +17,8 @@ const userScreen: Component = () => {
     getUser,
     isFollowing,
     isFollower,
-    isFollowedBy,
     isFollowingfunc,
     isFollowerfunc,
-    isFollowedByfunc,
     follow,
     unfollow,
   } = useUser() as any;
@@ -40,16 +38,18 @@ const userScreen: Component = () => {
     if (authUser()) {
       isFollowingfunc(userId);
       isFollowerfunc(userId);
-      isFollowedByfunc(userId, authUser().id);
     }
   });
 
+  const [followText , SetfollowText  ] = createSignal(false);
+
   const handleMouseOverFollow = () => {
-    console.log("mouse over follow");
+     
+    SetfollowText(true);
   };
 
   const handleMouseOutFollow = () => {
-    console.log("mouse out follow");
+    SetfollowText(false);
   };
 
   const handleMouseOverBlock = () => {};
@@ -92,7 +92,7 @@ const userScreen: Component = () => {
                   </p>
                 </div>
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4 ">
-                  <Show when={!isFollowing()}>
+                  <Show when={!isFollowing().isFollowing}>
                     <button
                       onClick={handleFollow}
                       type="button"
@@ -107,19 +107,21 @@ const userScreen: Component = () => {
                   >
                     <span class="font-bold text-white">Block</span>
                   </button> */}
+                  <Show when={isFollowing().isFollowing}>
                   <button
                     onClick={handleUnfollow}
                     type="button"
-                    class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
-                      isFollowing() ? "" : "unfollow"
+                    class={`inline-flex justify-center rounded-3xl border border-white-300 hover:text-red-600  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
+                      followText() ? "unfollow" : ""
                     }`}
                     onmouseover={handleMouseOverFollow}
                     onmouseout={handleMouseOutFollow}
                   >
                     <span class="font-bold text-white hover:text-red-600">
-                      {isFollowing() ? "Following" : "Follow"}
+                      {followText() ? "Unfollow" : "Following"}
                     </span>
                   </button>
+                  </Show>
                   {/*      <button
                     type="button"
                     class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
