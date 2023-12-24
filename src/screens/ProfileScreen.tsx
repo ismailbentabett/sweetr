@@ -49,7 +49,7 @@ const ProfileScreen: Component = () => {
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                   <button
                     type="button"
-                    class="inline-flex justify-center rounded-3xl border border-white-300  px-7 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+                    class="inline-flex justify-center rounded-3xl border border-white-300  px-7 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2"
                   >
                     <span class="font-bold text-white">Edit Profile</span>
                   </button>
