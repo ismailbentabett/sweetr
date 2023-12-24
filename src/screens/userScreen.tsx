@@ -6,6 +6,8 @@ import SweetPost from "../components/sweets/SweetPost";
 import { useAuth } from "../context/authContext";
 import { useSweet } from "../context/sweetContext";
 import { useUser } from "../context/userContext";
+import SweetPostSkeleton from "../components/skeletons/SweetPostSkeleton";
+import Empty from "../components/Empty";
 
 const userScreen: Component = () => {
   //get user id from url
@@ -173,9 +175,11 @@ const userScreen: Component = () => {
               </div>
             </dl>
           </div>
-          <For each={userSweets()} fallback={<div></div>}>
+          <Show when={userSweets().length > 0} fallback={<div><Empty/></div>}>
+          <For each={userSweets()} >
             {(sweet) => <SweetPost sweet={sweet} />}
           </For>
+          </Show>
         </div>
       </Show>
     </Authenticatedlayout>
