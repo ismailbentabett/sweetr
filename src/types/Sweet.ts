@@ -5,6 +5,8 @@ export interface Sweet {
   content: string;
   userId : string;
   liked? : boolean;
+  likes_count : number;
+  bookmarks_count : number;
   bookmarked? : boolean;
   user? : User;
   bookmaked : boolean;
