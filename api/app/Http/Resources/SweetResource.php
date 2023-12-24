@@ -5,31 +5,31 @@ namespace App\Http\Resources;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 use Maize\Markable\Models\Like;
 use Maize\Markable\Models\Bookmark;
-use Illuminate\Support\Facades\Auth;
 
 class SweetResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
      * @return array<string, mixed>
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         $sweet = $this->resource;
-
-        //get current user
-        $id = Auth::user()->id;
-
-        $user = User::where('id', $id)->first();
-        return parent::toArray($request) + [
-            'user' => $sweet->user,
-            'liked' =>  Like::has($sweet, $user),
+        $authUser = User::find(Auth::user()->id);
+        return [
+            'id' => $this->id,
+            'content' => $this->content,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'liked' => Like::has($sweet, $authUser),
+            'bookmarked' => Bookmark::has($sweet, $authUser),
             'likes_count' => Like::count($sweet),
-            'bookmarked' => Bookmark::has($sweet, $user),
+            'bookmarks_count' => Bookmark::count($sweet),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'), // Adjust the format as needed
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'), // Adjust the format as needed
         ];
     }
 }
