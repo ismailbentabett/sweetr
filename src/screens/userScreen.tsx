@@ -12,7 +12,18 @@ const userScreen: Component = () => {
   const params = useParams();
   const userId = params.id;
 
-  const { user, getUser } = useUser() as any;
+  const {
+    user,
+    getUser,
+    isFollowing,
+    isFollower,
+    isFollowedBy,
+    isFollowingfunc,
+    isFollowerfunc,
+    isFollowedByfunc,
+    follow,
+    unfollow,
+  } = useUser() as any;
   const { user: authUser } = useAuth() as any;
   const navigate = useNavigate();
 
@@ -25,26 +36,33 @@ const userScreen: Component = () => {
     if (authUser() && userId == authUser().id) {
       navigate("/profile");
     }
+
+    if (authUser()) {
+      isFollowingfunc(userId);
+      isFollowerfunc(userId);
+      isFollowedByfunc(userId, authUser().id);
+    }
   });
 
-  const [isFollowing, setIsFollowing] = createSignal(true);
-  const [isBlocked, setIsBlocked] = createSignal(true);
+  const handleMouseOverFollow = () => {
+    console.log("mouse over follow");
+  };
 
-  function handleMouseOverFollow() {
-    setIsFollowing(false);
-  }
+  const handleMouseOutFollow = () => {
+    console.log("mouse out follow");
+  };
 
-  function handleMouseOutFollow() {
-    setIsFollowing(true);
-  }
+  const handleMouseOverBlock = () => {};
 
-  function handleMouseOverBlock() {
-    setIsBlocked(false);
-  }
+  const handleMouseOutBlock = () => {};
 
-  function handleMouseOutBlock() {
-    setIsBlocked(true);
-  }
+  const handleFollow = () => {
+    follow(userId);
+  };
+
+  const handleUnfollow = () => {
+    unfollow(userId);
+  };
 
   return (
     <Authenticatedlayout>
@@ -74,19 +92,23 @@ const userScreen: Component = () => {
                   </p>
                 </div>
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4 ">
-                  <button
-                    type="button"
-                    class="inline-flex justify-center rounded-3xl border border-white-300 bg-white text-gray-900  px-7 py-2 text-sm font-medium  shadow-sm hover:bg-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2"
-                  >
-                    <span class="font-bold text-gray-900">Follow</span>
-                  </button>
-                  <button
+                  <Show when={!isFollowing()}>
+                    <button
+                      onClick={handleFollow}
+                      type="button"
+                      class="inline-flex justify-center rounded-3xl border border-white-300 bg-white text-gray-900  px-7 py-2 text-sm font-medium  shadow-sm hover:bg-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2"
+                    >
+                      <span class="font-bold text-gray-900">Follow</span>
+                    </button>
+                  </Show>
+                  {/*     <button
                     type="button"
                     class="inline-flex justify-center rounded-3xl border border-froly-300 bg-froly-400 text-white  px-7 py-2 text-sm font-medium  shadow-sm hover:bg-froly-500 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2"
                   >
                     <span class="font-bold text-white">Block</span>
-                  </button>
+                  </button> */}
                   <button
+                    onClick={handleUnfollow}
                     type="button"
                     class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
                       isFollowing() ? "" : "unfollow"
@@ -95,10 +117,10 @@ const userScreen: Component = () => {
                     onmouseout={handleMouseOutFollow}
                   >
                     <span class="font-bold text-white hover:text-red-600">
-                      {isFollowing() ? "Following" : "Unfollow"}
+                      {isFollowing() ? "Following" : "Follow"}
                     </span>
                   </button>
-                  <button
+                  {/*      <button
                     type="button"
                     class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
                       isBlocked() ? "" : "unblock"
@@ -109,7 +131,7 @@ const userScreen: Component = () => {
                     <span class="font-bold text-white hover:text-red-600">
                       {isBlocked() ? "Blocked" : "unblock"}
                     </span>
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
