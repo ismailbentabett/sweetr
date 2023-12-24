@@ -15,15 +15,15 @@ const ProfileScreen: Component = () => {
 
   const { user } = useAuth() as any;
 
-  const { userSweets, fetchUserSweets } = useSweet() as any;
+  const { mySweets, fetchMySweets } = useSweet() as any;
 
   createEffect(() => {
-    fetchUserSweets(userId);
+    fetchMySweets();
   });
 
   return (
     <Authenticatedlayout>
-      <Show when={user()} fallback={<div></div>}>
+      <Show when={user()}>
         <div class="text-white">
           <div>
             <img
@@ -94,10 +94,18 @@ const ProfileScreen: Component = () => {
               </div>
             </dl>
           </div>
-          <Show when={userSweets().length > 0} fallback={<div><Empty/></div>}>
-          <For each={userSweets()} >
-            {(sweet) => <SweetPost sweet={sweet} />}
-          </For>
+          <Show
+            when={mySweets().data.length > 0}
+            fallback={
+              <div>
+                <Empty />
+              </div>
+            }
+          >
+            
+            <For each={mySweets().data}>
+              {(sweet) => <SweetPost sweet={sweet} />}
+            </For>
           </Show>
         </div>
       </Show>
