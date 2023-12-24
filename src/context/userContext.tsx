@@ -7,13 +7,22 @@ axios.defaults.baseURL = "http://localhost:8000/api";
 axios.defaults.withCredentials = true;
 
 type UserContextValue = {
-  user: any
-  users:any;
+  user: any;
+  users: any;
+  isFollowing: any;
+  isFollower: any;
+  isFollowedBy: any;
   fetchUsers: () => Promise<void>;
   getUser: (id: string | number) => Promise<void>;
 
   updateUser: (id: string | number, data: User) => Promise<void>;
   deleteUser: (id: string | number) => Promise<void>;
+  isFollowingfunc: (id: string | number) => Promise<void>;
+  isFollowerfunc: (id: string | number) => Promise<void>;
+  isFollowedByfunc: (
+    followeeId: string | number,
+    followerId: string | number
+  ) => Promise<void>;
 };
 
 const userContext = createContext<UserContextValue>();
@@ -21,6 +30,9 @@ const userContext = createContext<UserContextValue>();
 export const UserProvider = (props: { children: any }) => {
   const [users, setUsers] = createSignal<User[]>([]);
   const [user, setUser] = createSignal<User | null>(null);
+  const [isFollowing, setIsFollowing] = createSignal(true);
+  const [isFollower, setIsFollower] = createSignal(true);
+  const [isFollowedBy, setIsFollowedBy] = createSignal(true);
 
   const fetchUsers = async () => {
     try {
@@ -40,7 +52,7 @@ export const UserProvider = (props: { children: any }) => {
       console.error(`Error fetching user ${id}:`, error);
       throw error;
     }
-  }
+  };
 
   const updateUser = async (id: string | number, data: User) => {
     try {
@@ -63,15 +75,56 @@ export const UserProvider = (props: { children: any }) => {
     }
   };
 
+  const isFollowingfunc = async (id: string | number) => {
+    try {
+      const response = await axios.get(`user/isFollowing/${id}`);
+      setIsFollowing(response.data);
+    } catch (error) {
+      console.error(`Error fetching user ${id}:`, error);
+      throw error;
+    }
+  };
+
+  const isFollowerfunc = async (id: string | number) => {
+    try {
+      const response = await axios.get(`user/isFollower/${id}`);
+      setIsFollower(response.data);
+    } catch (error) {
+      console.error(`Error fetching user ${id}:`, error);
+      throw error;
+    }
+  };
+
+  const isFollowedByfunc = async (
+    followeeId: string | number,
+    followerId: string | number
+  ) => {
+    try {
+      const response = await axios.get(
+        `user/isFollowedBy/${followeeId}/${followerId}`
+      );
+      setIsFollowedBy(response.data);
+    } catch (error) {
+      console.error(`Error fetching user ${followeeId}:`, error);
+      throw error;
+    }
+  };
+
   return (
     <userContext.Provider
       value={{
         user,
         users,
+        isFollowing,
+        isFollower,
+        isFollowedBy,
         fetchUsers,
         getUser,
         updateUser,
         deleteUser,
+        isFollowingfunc,
+        isFollowerfunc,
+        isFollowedByfunc,
       }}
     >
       {props.children}
