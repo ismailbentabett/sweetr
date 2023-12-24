@@ -68,12 +68,10 @@ class SweetController extends Controller
         return response()->json($sweet);
     }
 
-    public function destroy(Sweet $sweet)
+    public function destroy($id)
     {
-        $this->authorize('delete', $sweet);
-
+        $sweet = Sweet::find($id);
         $sweet->delete();
-
         return response()->json(['message' => 'Sweet deleted successfully']);
     }
 }
