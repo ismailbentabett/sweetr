@@ -175,8 +175,8 @@ const userScreen: Component = () => {
               </div>
             </dl>
           </div>
-          <Show when={userSweets().length > 0} fallback={<div><Empty/></div>}>
-          <For each={userSweets()} >
+          <Show when={userSweets().data.length > 0} fallback={<div><Empty/></div>}>
+          <For each={userSweets().data} >
             {(sweet) => <SweetPost sweet={sweet} />}
           </For>
           </Show>
