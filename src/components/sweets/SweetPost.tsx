@@ -79,7 +79,7 @@ const SweetPost = (props: { sweet: Sweet }) => {
                 >
                   {!sweet().liked && <FaRegularHeart size={18} />}
                   {sweet().liked && <AiFillHeart size={18} color="#D91346" />}
-                  <span class="text-xs ml-3">10</span>
+                  <span class="text-xs ml-3">{sweet().likes_count}</span>
                 </button>
               </div>
               <button
