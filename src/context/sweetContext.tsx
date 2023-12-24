@@ -106,7 +106,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const likeSweet = async (id: number | string) => {
     try {
-      const response = await axios.get(`/sweets/like/${id}`);
+      const response = await axios.post(`/sweets/like/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -117,7 +117,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const unlikeSweet = async (id: number | string) => {
     try {
-      const response = await axios.get(`/sweets/unlike/${id}`);
+      const response = await axios.post(`/sweets/unlike/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -128,7 +128,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const bookmarkSweet = async (id: number | string) => {
     try {
-      const response = await axios.get(`/sweets/bookmark/${id}`);
+      const response = await axios.post(`/sweets/bookmark/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
@@ -139,7 +139,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const unbookmarkSweet = async (id: number | string) => {
     try {
-      const response = await axios.get(`/sweets/unbookmark/${id}`);
+      const response = await axios.post(`/sweets/unbookmark/${id}`);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
