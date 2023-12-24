@@ -1,7 +1,7 @@
 import { AiOutlineHome } from "solid-icons/ai";
 import { BsBookmark, BsHeart } from "solid-icons/bs";
-import { CgMoreO, CgProfile } from "solid-icons/cg";
-
+import { CgProfile } from "solid-icons/cg";
+import { IoSettingsOutline } from "solid-icons/io";
 const SIZE = 24;
 
 export const links = [
@@ -17,18 +17,18 @@ export const links = [
   },
 
   {
-    name: "Saved",
-    href: "/saved",
+    name: "Bookmarks",
+    href: "/bookmarks",
     icon: () => <BsBookmark size={SIZE} />,
   },
   {
-    name: "Liked",
-    href: "/liked",
+    name: "Likes",
+    href: "/likes",
     icon: () => <BsHeart size={SIZE} />,
   },
   {
-    name: "More",
-    href: "/more",
-    icon: () => <CgMoreO size={SIZE} />,
+    name: "Settings",
+    href: "/settings",
+    icon: () => <IoSettingsOutline  size={SIZE} />,
   },
 ];
