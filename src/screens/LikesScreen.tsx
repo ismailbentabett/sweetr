@@ -1,10 +1,11 @@
 import { Component } from "solid-js";
+import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 
 const LikesScreen: Component = () => {
     return (
-        <div>
+        <Authenticatedlayout>
             <h1>LikesScreen</h1>
-        </div>
+        </Authenticatedlayout>
     );
 };
 
