@@ -28,14 +28,25 @@ const userScreen: Component = () => {
   });
 
   const [isFollowing, setIsFollowing] = createSignal(true);
+  const [isBlocked, setIsBlocked] = createSignal(true);
 
-  function handleMouseOver() {
+  function handleMouseOverFollow() {
     setIsFollowing(false);
   }
 
-  function handleMouseOut() {
+  function handleMouseOutFollow() {
     setIsFollowing(true);
   }
+
+  function handleMouseOverBlock() {
+    setIsBlocked(false);
+  }
+
+  function handleMouseOutBlock() {
+    setIsBlocked(true);
+  }
+
+  
 
   return (
     <Authenticatedlayout>
@@ -64,7 +75,7 @@ const userScreen: Component = () => {
                   {user().user.email}
                   </p>
                 </div>
-                <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4 ">
                   <button
                     type="button"
                     class="inline-flex justify-center rounded-3xl border border-white-300 bg-white text-gray-900  px-7 py-2 text-sm font-medium  shadow-sm hover:bg-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2"
@@ -73,14 +84,32 @@ const userScreen: Component = () => {
                   </button>
                   <button
                     type="button"
+                    class="inline-flex justify-center rounded-3xl border border-froly-300 bg-froly-400 text-white  px-7 py-2 text-sm font-medium  shadow-sm hover:bg-froly-500 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2"
+                  >
+                    <span class="font-bold text-white">Block</span>
+                  </button>
+                  <button
+                    type="button"
                     class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
                       isFollowing() ? "" : "unfollow"
                     }`}
-                    onmouseover={handleMouseOver}
-                    onmouseout={handleMouseOut}
+                    onmouseover={handleMouseOverFollow}
+                    onmouseout={handleMouseOutFollow}
                   >
                     <span class="font-bold text-white hover:text-red-600">
                       {isFollowing() ? "Following" : "Unfollow"}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    class={`inline-flex justify-center rounded-3xl border border-white-300  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
+                      isBlocked() ? "" : "unblock"
+                    }`}
+                    onmouseover={handleMouseOverBlock}
+                    onmouseout={handleMouseOutBlock}
+                  >
+                    <span class="font-bold text-white hover:text-red-600">
+                      {isBlocked() ? "Blocked" : "unblock"}
                     </span>
                   </button>
                 </div>
