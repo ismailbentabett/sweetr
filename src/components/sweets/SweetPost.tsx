@@ -53,7 +53,7 @@ const SweetPost = (props: { sweet: Sweet }) => {
                   <span class="mx-2">&#8226;</span>
                   <span class="text-gray-400">2h</span>
                 </div>
-                <Show when={sweet().user!.id === user().id}>
+                <Show when={sweet().user!.id === user().data.id}>
                 <div class="text-gray-400 cursor-pointer transition hover:text-red-400">
                   <FiTrash size={16} />
                 </div>
