@@ -8,8 +8,6 @@ use App\Models\Sweet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maize\Markable\Models\Bookmark;
-use Maize\Markable\Models\Like;
 
 class SweetController extends Controller
 {
@@ -17,23 +15,14 @@ class SweetController extends Controller
     {
         $sweets = Sweet::with('user')->latest()->get();
 
-        return new SweetResource($sweets);
+        return SweetResource::collection($sweets);
     }
     public function userSweets($id)
     {
-        $sweets = Sweet::where('user_id', $id)->latest()->get();
-        $id = Auth::user()->id;
-
-        $user = User::where('id', $id)->first();
-
-        foreach ($sweets as $sweet) {
-            $sweet->liked =  Like::has($sweet, $user);
-            $sweet->likes_count = Like::count($sweet);
-            $sweet->bookmarked = Bookmark::has($sweet, $user);
-        }
-
-        return response()->json($sweets->load('user'));
+        $sweets = Sweet::where('user_id', $id)->latest('created_at')->get();
+        return SweetResource::collection($sweets);
     }
+
 
     public function mySweets()
     {
