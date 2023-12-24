@@ -28,7 +28,7 @@ class SweetController extends Controller
     {
         $sweets = Sweet::where('user_id', Auth::user()->id)->with('user')->latest()->get();
 
-        return new SweetResource($sweets);
+        return SweetResource::collection($sweets);
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class SweetController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        return response()->json($sweet, 201);
+        return new SweetResource($sweet);
     }
 
     public function show(Sweet $sweet)
@@ -65,7 +65,7 @@ class SweetController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        return response()->json($sweet);
+        return new SweetResource($sweet);
     }
 
     public function destroy($id)
