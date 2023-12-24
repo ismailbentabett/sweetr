@@ -23,7 +23,7 @@ class SweetResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
-            'user' => new UserResource($this->whenLoaded('user')),
+            'user' => new UserResource($this->user),
             'liked' => Like::has($sweet, $authUser),
             'bookmarked' => Bookmark::has($sweet, $authUser),
             'likes_count' => Like::count($sweet),
