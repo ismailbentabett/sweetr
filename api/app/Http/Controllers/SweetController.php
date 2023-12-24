@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SweetResource;
 use App\Models\Sweet;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,20 +15,20 @@ class SweetController extends Controller
     {
         $sweets = Sweet::with('user')->latest()->get();
 
-        return response()->json($sweets);
+        return new SweetResource($sweets);
     }
     public function userSweets($id)
     {
         $sweets = Sweet::where('user_id', $id)->with('user')->latest()->get();
 
-        return response()->json($sweets);
+        return new SweetResource($sweets);
     }
 
     public function mySweets()
     {
         $sweets = Sweet::where('user_id', Auth::user()->id)->with('user')->latest()->get();
 
-        return response()->json($sweets);
+        return new SweetResource($sweets);
     }
 
     public function store(Request $request)
@@ -49,7 +50,7 @@ class SweetController extends Controller
     {
         $sweet = $sweet->load('user');
 
-        return response()->json($sweet);
+        return new SweetResource($sweet);
     }
 
     public function update(Request $request, Sweet $sweet)
