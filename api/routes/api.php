@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [SweetController::class, 'store']);
         Route::get('/{sweet}', [SweetController::class, 'show']);
         Route::put('/{sweet}', [SweetController::class, 'update']);
-        Route::delete('/{sweet}', [SweetController::class, 'destroy']);
+        Route::delete('/{id}', [SweetController::class, 'destroy']);
 
         Route::post('/like/{id}', [sweetInteractionsController::class, 'like']);
         Route::post('/unlike/{id}', [sweetInteractionsController::class, 'unlike']);
