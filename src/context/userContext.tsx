@@ -23,6 +23,9 @@ type UserContextValue = {
     followeeId: string | number,
     followerId: string | number
   ) => Promise<void>;
+
+  follow: (id: string | number) => Promise<void>;
+  unfollow: (id: string | number) => Promise<void>;
 };
 
 const userContext = createContext<UserContextValue>();
@@ -110,6 +113,26 @@ export const UserProvider = (props: { children: any }) => {
     }
   };
 
+  const follow = async (id: string | number) => {
+    try {
+      const response = await axios.post(`user/follow/${id}`);
+      setIsFollowedBy(response.data);
+    } catch (error) {
+      console.error(`Error fetching user ${id}:`, error);
+      throw error;
+    }
+  };
+
+  const unfollow = async (id: string | number) => {
+    try {
+      const response = await axios.post(`user/unfollow/${id}`);
+      setIsFollowedBy(response.data);
+    } catch (error) {
+      console.error(`Error fetching user ${id}:`, error);
+      throw error;
+    }
+  };
+
   return (
     <userContext.Provider
       value={{
@@ -125,6 +148,8 @@ export const UserProvider = (props: { children: any }) => {
         isFollowingfunc,
         isFollowerfunc,
         isFollowedByfunc,
+        follow,
+        unfollow,
       }}
     >
       {props.children}
