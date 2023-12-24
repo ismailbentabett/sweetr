@@ -6,9 +6,8 @@ import {
   useContext,
 } from "solid-js";
 import { Sweet } from "../types/Sweet";
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8000/api";
-axios.defaults.withCredentials = true;
+import axios from "../helpers/axios";
+
 
 type SweetContextValue = {
   sweet: any;
@@ -56,6 +55,7 @@ export const SweetProvider = (props: { children: any }) => {
   const fetchUserSweets = async (id: string) => {
     try {
       const response = await axios.get("/sweets/user/" + id);
+      console.log(response.data);
       setuserSweets(response.data);
     } catch (error) {
       console.error("Error fetching sweets:", error);
