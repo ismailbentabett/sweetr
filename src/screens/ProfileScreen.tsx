@@ -5,6 +5,8 @@ import SweetPost from "../components/sweets/SweetPost";
 import { useSweet } from "../context/sweetContext";
 import { useAuth } from "../context/authContext";
 import { useParams } from "@solidjs/router";
+import SweetPostSkeleton from "../components/skeletons/SweetPostSkeleton";
+import Empty from "../components/Empty";
 
 const ProfileScreen: Component = () => {
   //get user id from url
@@ -34,16 +36,16 @@ const ProfileScreen: Component = () => {
             <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
               <div class="flex">
                 <span class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32">
-                  <Avatar username="ismailbentabett" size={140} />{" "}
+                  <Avatar username={user().data.name} size={140} />{" "}
                 </span>{" "}
               </div>
               <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                 <div class="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
                   <h1 class="truncate text-2xl font-bold text-white">
-                    {user().name}
+                    {user().data.name}
                   </h1>
                   <p class="text-sm font-medium text-gray-400">
-                    @{user().name}
+                    {user().data.email}
                   </p>
                 </div>
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -58,15 +60,28 @@ const ProfileScreen: Component = () => {
             </div>
             <div class="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
               <h1 class="truncate text-2xl font-bold text-white">
-                {user().name}
+                {user().data.name}
               </h1>
-              <p class="text-sm font-medium text-gray-400">@{user().name}</p>
+              <p class="text-sm font-medium text-gray-400">
+                {user().data.email}
+              </p>
             </div>
           </div>
 
-          <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8 mb-10 border-b border-gray-700 pb-10">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-            <div class="sm:col-span-2">
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Website</dt>
+
+                <a
+                  href="https://www.ismailbentabett.com"
+                  class="font-medium text-froly-600 dark:text-froly-500 hover:underline"
+                >
+                  https://www.ismailbentabett.com
+                </a>
+              </div>
+
+              <div class="sm:col-span-2">
                 <dt class="text-sm font-medium text-gray-500">About</dt>
                 <dd class="mt-1 max-w-prose space-y-5 text-sm text-white">
                   <p>
@@ -77,56 +92,13 @@ const ProfileScreen: Component = () => {
                   </p>
                 </dd>
               </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Phone</dt>
-                <dd class="mt-1 text-sm text-white">(555) 123-4567</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Email</dt>
-                <dd class="mt-1 text-sm text-white">
-                  ricardocooper@example.com
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Title</dt>
-                <dd class="mt-1 text-sm text-white">
-                  Senior Front-End Developer
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Team</dt>
-                <dd class="mt-1 text-sm text-white">Product Development</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Location</dt>
-                <dd class="mt-1 text-sm text-white">San Francisco</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Sits</dt>
-                <dd class="mt-1 text-sm text-white">Oasis, 4th floor</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Salary</dt>
-                <dd class="mt-1 text-sm text-white">$145,000</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Birthday</dt>
-                <dd class="mt-1 text-sm text-white">June 8, 1990</dd>
-              </div>
-
-          
             </dl>
           </div>
-          <For each={userSweets()} fallback={<div></div>}>
+          <Show when={userSweets().length > 0} fallback={<div><Empty/></div>}>
+          <For each={userSweets()} >
             {(sweet) => <SweetPost sweet={sweet} />}
           </For>
+          </Show>
         </div>
       </Show>
     </Authenticatedlayout>
