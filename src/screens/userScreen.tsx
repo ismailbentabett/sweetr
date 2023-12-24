@@ -46,8 +46,6 @@ const userScreen: Component = () => {
     setIsBlocked(true);
   }
 
-  
-
   return (
     <Authenticatedlayout>
       <Show when={user()}>
@@ -72,7 +70,7 @@ const userScreen: Component = () => {
                     {user().user.name}
                   </h1>
                   <p class="text-sm font-medium text-gray-400">
-                  {user().user.email}
+                    {user().user.email}
                   </p>
                 </div>
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4 ">
@@ -120,13 +118,24 @@ const userScreen: Component = () => {
                 {user().user.name}
               </h1>
               <p class="text-sm font-medium text-gray-400">
-                 {user().user.email}
+                {user().user.email}
               </p>
             </div>
           </div>
 
-          <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8 mb-10 border-b border-gray-700 pb-10">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Website</dt>
+
+                <a
+                  href="https://www.ismailbentabett.com"
+                  class="font-medium text-froly-600 dark:text-froly-500 hover:underline"
+                >
+                  https://www.ismailbentabett.com
+                </a>
+              </div>
+
               <div class="sm:col-span-2">
                 <dt class="text-sm font-medium text-gray-500">About</dt>
                 <dd class="mt-1 max-w-prose space-y-5 text-sm text-white">
@@ -137,49 +146,6 @@ const userScreen: Component = () => {
                     perspiciatis rem quam at.
                   </p>
                 </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Phone</dt>
-                <dd class="mt-1 text-sm text-white">(555) 123-4567</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Email</dt>
-                <dd class="mt-1 text-sm text-white">
-                  ricardocooper@example.com
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Title</dt>
-                <dd class="mt-1 text-sm text-white">
-                  Senior Front-End Developer
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Team</dt>
-                <dd class="mt-1 text-sm text-white">Product Development</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Location</dt>
-                <dd class="mt-1 text-sm text-white">San Francisco</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Sits</dt>
-                <dd class="mt-1 text-sm text-white">Oasis, 4th floor</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Salary</dt>
-                <dd class="mt-1 text-sm text-white">$145,000</dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Birthday</dt>
-                <dd class="mt-1 text-sm text-white">June 8, 1990</dd>
               </div>
             </dl>
           </div>
