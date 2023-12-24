@@ -22,7 +22,7 @@ const userScreen: Component = () => {
     fetchUserSweets(userId);
     getUser(userId);
 
-    if (userId == authUser().id) {
+    if (authUser() && userId == authUser().id) {
       navigate("/profile");
     }
   });
