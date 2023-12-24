@@ -37,10 +37,10 @@ Route::middleware([])->group(function () {
         Route::put('/{sweet}', [SweetController::class, 'update']);
         Route::delete('/{sweet}', [SweetController::class, 'destroy']);
 
-        Route::get('/like', [sweetInteractionsController::class, 'like']);
-        Route::get('/unlike', [ReplyController::class, 'unlike']);
-        Route::get('/bookmark', [ReplyController::class, 'bookmark']);
-        Route::get('unbookmark', [ReplyController::class, 'unBookMark']);
+        Route::post('/like/{id}', [sweetInteractionsController::class, 'like']);
+        Route::post('/unlike/{id}', [sweetInteractionsController::class, 'unlike']);
+        Route::post('/bookmark/{id}', [sweetInteractionsController::class, 'bookmark']);
+        Route::post('unbookmark/{id}', [sweetInteractionsController::class, 'unBookMark']);
     });
     Route::prefix('comments')->group(function () {
         Route::post('/', [CommentController::class, 'store']);
