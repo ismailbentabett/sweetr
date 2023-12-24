@@ -6,6 +6,7 @@ use App\Http\Controllers\SweetController;
 use App\Http\Controllers\userInteractionsController;
 use App\Http\Controllers\sweetInteractionsController;
 use App\Http\Controllers\userController;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+
+    return new UserResource($request->user());
 });
 
 // routes/api.php
@@ -62,5 +64,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/block', [userInteractionsController::class, 'blockUser']);
         Route::post('/unblock', [userInteractionsController::class, 'unblockUser']);
         Route::get('/{id}', [userController::class, 'show']);
+        Route::get('/isFollowing/{id}', [userController::class, 'isFollowing']);
+        Route::get('/isFollower/{id}', [userController::class, 'isFollower']);
+        Route::get('/isFollowedBy/{followeeId}/{followerId}', [userController::class, 'isFollowedBy']);
     });
 });
