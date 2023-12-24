@@ -14,6 +14,8 @@ import { SweetProvider } from "./context/sweetContext";
 import userScreen from "./screens/userScreen";
 import { UserProvider } from "./context/userContext";
 import LikesScreen from "./screens/LikesScreen";
+import BookMarkScreen from "./screens/BookMarkScreen";
+import SettingScreen from "./screens/SettingScreen";
 
 const root = document.getElementById("root");
 
@@ -30,8 +32,8 @@ render(
             <Route path="/profile" component={ProfileScreen} />
             <Route path="/user/:id" component={userScreen} />
             <Route path="/likes" component={LikesScreen} />
-            <Route path="/bookmarks" component={BookmarksScreen} />
-            <Route path="/settings" component={SettingsScreen} />
+            <Route path="/bookmarks" component={BookMarkScreen} />
+            <Route path="/settings" component={SettingScreen} />
             <Route path="/:rest*" component={NotFound} />
           </Router>
         </SweetProvider>
@@ -40,10 +42,3 @@ render(
   ),
   root!
 );
-function SettingsScreen(props: RouteSectionProps<unknown>): Element {
-  throw new Error("Function not implemented.");
-}
-
-function BookmarksScreen(props: RouteSectionProps<unknown>): Element {
-  throw new Error("Function not implemented.");
-}
