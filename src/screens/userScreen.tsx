@@ -61,7 +61,7 @@ const userScreen: Component = () => {
                     {user().user.name}
                   </h1>
                   <p class="text-sm font-medium text-gray-400">
-                    @ {user().user.name}
+                  {user().user.email}
                   </p>
                 </div>
                 <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -91,7 +91,7 @@ const userScreen: Component = () => {
                 {user().user.name}
               </h1>
               <p class="text-sm font-medium text-gray-400">
-                @ {user().user.name}
+                 {user().user.email}
               </p>
             </div>
           </div>
