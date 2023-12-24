@@ -41,7 +41,7 @@ const App = (props: {
   return (
     <div>
       <LoadingBar
-        color="#f11946"
+        color="#D91346"
         loadingBar={loadingBar()}
         setLoadingBar={setLoadingBar}
       />
