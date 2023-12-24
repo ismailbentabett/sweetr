@@ -10,22 +10,22 @@ use Illuminate\Http\Request;
 class userInteractionsController extends Controller
 {
     //follow and unfollow
-    public function follow(Request $request)
+    public function follow($id)
     {
         $AuthUser = User::where("id", Auth::user()->id)->first();
-        $userTofollow = User::where("id", $request->user_id)->first();
+        $userTofollow = User::where('id', $id)->first();
         $AuthUser->follow($userTofollow);
         return response()->json([
             'message' => 'You are now following ' . $userTofollow->name,
         ]);
     }
 
-    public function unfollow(Request $request)
+    public function unfollow($id)
     {
         $AuthUser = User::where('id', Auth::user()->id)->first();
         $userToUnfollow = User::where(
             'id',
-            Auth::user()->id
+            $id
         )->first();
         $AuthUser->unfollow($userToUnfollow);
         return response()->json([
