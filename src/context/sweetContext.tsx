@@ -70,8 +70,8 @@ export const SweetProvider = (props: { children: any }) => {
   const createSweet = async (data: Sweet) => {
     try {
       const response = await axios.post("/sweets", data);
-      console.log(response.data);
-      setSweets((prevSweets) => [...prevSweets, response.data]);
+      console.log(response.data.data);
+      setSweets((prevSweets) => [ response.data.data , ...prevSweets]);
     } catch (error) {
       console.error("Error creating sweet:", error);
     }
