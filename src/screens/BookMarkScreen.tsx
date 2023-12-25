@@ -1,13 +1,31 @@
-import { Component } from "solid-js";
+import { Component, For, Show, createEffect } from "solid-js";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
+import { useUser } from "../context/userContext";
+import SweetPost from "../components/sweets/SweetPost";
+import Empty from "../components/Empty";
 
 const BookMarkScreen: Component = () => {
-    return (
-        <Authenticatedlayout>
+  const { bookmarks, fetchBookmarks } = useUser() as any;
 
-            <h1>BookMarks</h1>
-        </Authenticatedlayout>
-    );
+    fetchBookmarks();
+  
+  return (
+    <Authenticatedlayout>
+        {JSON.stringify(bookmarks())}
+ {/*      <Show
+        when={bookmarks().data.length > 0}
+        fallback={
+          <div>
+            <Empty />
+          </div>
+        }
+      >
+        <For each={bookmarks().data}>
+          {(sweet) => <SweetPost sweet={sweet} />}
+        </For>
+      </Show> */}
+    </Authenticatedlayout>
+  );
 };
 
 export default BookMarkScreen;
