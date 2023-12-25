@@ -150,26 +150,25 @@ const userScreen: Component = () => {
           </div>
 
           <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8 mb-10 border-b border-gray-700 pb-10">
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+          <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Website</dt>
+              <Show when={user().data.website}>
 
-                <a
-                  href="https://www.ismailbentabett.com"
-                  class="font-medium text-froly-600 dark:text-froly-500 hover:underline"
-                >
-                  https://www.ismailbentabett.com
-                </a>
+                <dt class="text-sm font-medium text-gray-500">Website</dt>
+                  <a
+                    href={user().data.website}
+                    class="font-medium text-froly-600 dark:text-froly-500 hover:underline"
+                  >
+                    {user().data.website ? user().data.website : "No website"}
+                  </a>
+                </Show>
               </div>
 
               <div class="sm:col-span-2">
                 <dt class="text-sm font-medium text-gray-500">About</dt>
                 <dd class="mt-1 max-w-prose space-y-5 text-sm text-white">
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                    error laudantium quas fuga repellat alias maxime reiciendis
-                    saepe aut. Eligendi sed, nesciunt minima animi maxime odit
-                    perspiciatis rem quam at.
+                    {user().data.bio ? user().data.bio : "No bio available"}
                   </p>
                 </dd>
               </div>
