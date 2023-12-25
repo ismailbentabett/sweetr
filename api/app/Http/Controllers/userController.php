@@ -18,22 +18,7 @@ class userController extends Controller
     }
 
 
-    public function likedSweets()
-    {
-        $users = User::all();
-        return response()->json([
-            'users' => $users,
-        ]);
-    }
 
-    //bookmarked sweets
-    public function bookmarkedSweets()
-    {
-        $users = User::all();
-        return response()->json([
-            'users' => $users,
-        ]);
-    }
 
     public function show($id)
     {
@@ -63,7 +48,7 @@ class userController extends Controller
         $authUser = User::find(auth()->user()->id);
 
 
-        $isFollower = $authUser->isFollowedBy($user);
+        $isFollower = $authUser->isFollower($user);
 
         return response()->json([
             'isFollower' => $isFollower,
