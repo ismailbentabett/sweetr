@@ -105,6 +105,7 @@ export const SweetProvider = (props: { children: any }) => {
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? response.data : s))
       );
+      showToast("Sweet updated successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error updating sweet ${id}:`, error);
     }
@@ -114,6 +115,7 @@ export const SweetProvider = (props: { children: any }) => {
     try {
       await axios.delete(`/sweets/${id}`);
       setSweets((prevSweets) => prevSweets.filter((s) => s.id !== id));
+      showToast("Sweet deleted successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error deleting sweet ${id}:`, error);
     }
@@ -145,6 +147,7 @@ export const SweetProvider = (props: { children: any }) => {
         );
         return { data: dd } as any;
       });
+      showToast("Sweet liked successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error liking sweet ${id}:`, error);
     }
@@ -176,6 +179,7 @@ export const SweetProvider = (props: { children: any }) => {
         );
         return { data: dd } as any;
       });
+      showToast("Sweet unliked successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error unliking sweet ${id}:`, error);
     }
@@ -206,6 +210,7 @@ export const SweetProvider = (props: { children: any }) => {
         );
         return { data: dd } as any;
       });
+      showToast("Sweet bookmarked successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error bookmarking sweet ${id}:`, error);
     }
@@ -237,6 +242,7 @@ export const SweetProvider = (props: { children: any }) => {
         );
         return { data: dd } as any;
       });
+      showToast("Sweet unbookmarked successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error unbookmarking sweet ${id}:`, error);
     }
