@@ -4,7 +4,7 @@ import { useAuth } from "../context/authContext";
 import useForm from "../hooks/useForm";
 
 const SettingScreen: Component = () => {
-  const { user } = useAuth() as any;
+  const { user, updateUser } = useAuth() as any;
 
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     email: "",
@@ -19,6 +19,22 @@ const SettingScreen: Component = () => {
     handleChange("website", user().data.website ? user().data.website : "");
     handleChange("bio", user().data.bio ? user().data.bio : "");
   });
+
+  const handleUpdate = async () => {
+    try {
+      // Call the login function from the AuthContext
+      updateUser({
+        email: values().email,
+        name: values().name,
+        website: values().website,
+        bio: values().bio,
+      });
+      // Redirect to the dashboard after successful login
+    } catch (error) {
+      // Handle login error here (e.g., display an error message)
+      console.error("Login failed:", error);
+    }
+  };
 
   return (
     <Authenticatedlayout>
@@ -133,6 +149,7 @@ const SettingScreen: Component = () => {
 
               <div class="flex justify-end">
                 <button
+                  onClick={handleUpdate}
                   type="submit"
                   class="text-white bg-froly-500  hover:bg-froly-600 focus:ring-4 focus:outline-none focus:ring-froly-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-froly-600 dark:hover:bg-froly-700 dark:focus:ring-froly-800"
                 >
