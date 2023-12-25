@@ -14,7 +14,8 @@ const MainSidebar: Component = (props: any) => {
   const { user } = useAuth() as any;
   const handleOpenModal = () => {
     setIsOpen((old) => !old);
-    props.openSideBar(isOpen());
+    console.log(props)
+    props.openSidebar(isOpen());
   };
 
   return (
