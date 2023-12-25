@@ -81,7 +81,7 @@ const userScreen: Component = () => {
             <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
               <div class="flex">
                 <span class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32">
-                  <Avatar username="ismailbentabett" size={140} />{" "}
+                  <Avatar username={user().user.name} size={140} />{" "}
                 </span>{" "}
               </div>
               <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
