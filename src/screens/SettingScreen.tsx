@@ -2,6 +2,7 @@ import { Component, createEffect } from "solid-js";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import { useAuth } from "../context/authContext";
 import useForm from "../hooks/useForm";
+import Avatar from "../components/Avatar";
 
 const SettingScreen: Component = () => {
   const { user, updateUser } = useAuth() as any;
@@ -44,11 +45,9 @@ const SettingScreen: Component = () => {
 
           <div class="grid max-w-2xl mx-auto mt-8">
             <div class="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
-              <img
-                class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-froly-300 dark:ring-froly-500"
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-                alt="Bordered avatar"
-              />
+              <div class="object-cover w-40 h-40 p-1.5 rounded-full ring-2 ring-froly-300 dark:ring-froly-500">
+                <Avatar username={user().data.name} size={140} />{" "}
+              </div>
 
               <div class="flex flex-col space-y-5 sm:ml-8">
                 <button
