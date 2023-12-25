@@ -43,7 +43,7 @@ export const ToastProvider = (props: {
       ...options,
       duration: options.duration || 5000,
       icon: '🧁',
-      className: "border-2 border-gray-600",
+      className: "border-2 border-gray-600 rounded-md",
       style: {
         background: "#1f2937",
         color: "#f3f4f6",
