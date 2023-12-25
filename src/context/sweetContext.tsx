@@ -8,7 +8,6 @@ import {
 import { Sweet } from "../types/Sweet";
 import axios from "../helpers/axios";
 
-
 type SweetContextValue = {
   sweet: any;
   sweets: any;
@@ -30,11 +29,11 @@ type SweetContextValue = {
 const sweetContext = createContext<SweetContextValue>();
 
 export const SweetProvider = (props: { children: any }) => {
-  const [sweets, setSweets] = createSignal<Sweet[]>([]);
-  const [sweet, setSweet] = createSignal<Sweet | null>(null);
+  const [sweets, setSweets] = createSignal<any[]>([]);
+  const [sweet, setSweet] = createSignal<any | null>(null);
 
-  const [mySweets, setmySweets] = createSignal<Sweet[]>([]);
-  const [userSweets, setuserSweets] = createSignal<Sweet[]>([]);
+  const [mySweets, setmySweets] = createSignal<any[]>([]);
+  const [userSweets, setuserSweets] = createSignal<any[]>([]);
 
   const fetchSweets = async () => {
     try {
@@ -71,7 +70,7 @@ export const SweetProvider = (props: { children: any }) => {
     try {
       const response = await axios.post("/sweets", data);
       console.log(response.data.data);
-      setSweets((prevSweets) => [ response.data.data , ...prevSweets]);
+      setSweets((prevSweets) => [response.data.data, ...prevSweets]);
     } catch (error) {
       console.error("Error creating sweet:", error);
     }
@@ -109,8 +108,20 @@ export const SweetProvider = (props: { children: any }) => {
   const likeSweet = async (id: number | string) => {
     try {
       const response = await axios.post(`/sweets/like/${id}`);
+      const data = response.data.data;
+      console.log(data);
       setSweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? response.data : s))
+        prevSweets.map((s) => (s.id === id ? data : s))
+      );
+      setuserSweets((prevSweets) => {
+        const prev = prevSweets as any;
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
+      setmySweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? data : s))
       );
     } catch (error) {
       console.error(`Error liking sweet ${id}:`, error);
@@ -120,8 +131,19 @@ export const SweetProvider = (props: { children: any }) => {
   const unlikeSweet = async (id: number | string) => {
     try {
       const response = await axios.post(`/sweets/unlike/${id}`);
+      const data = response.data.data;
       setSweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? response.data : s))
+        prevSweets.map((s) => (s.id === id ? data : s))
+      );
+      setuserSweets((prevSweets) => {
+        const prev = prevSweets as any;
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
+      setmySweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? data : s))
       );
     } catch (error) {
       console.error(`Error unliking sweet ${id}:`, error);
@@ -131,8 +153,19 @@ export const SweetProvider = (props: { children: any }) => {
   const bookmarkSweet = async (id: number | string) => {
     try {
       const response = await axios.post(`/sweets/bookmark/${id}`);
+      const data = response.data.data;
       setSweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? response.data : s))
+        prevSweets.map((s) => (s.id === id ? data : s))
+      );
+      setuserSweets((prevSweets) => {
+        const prev = prevSweets as any;
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
+      setmySweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? data : s))
       );
     } catch (error) {
       console.error(`Error bookmarking sweet ${id}:`, error);
@@ -142,8 +175,19 @@ export const SweetProvider = (props: { children: any }) => {
   const unbookmarkSweet = async (id: number | string) => {
     try {
       const response = await axios.post(`/sweets/unbookmark/${id}`);
+      const data = response.data.data;
       setSweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? response.data : s))
+        prevSweets.map((s) => (s.id === id ? data : s))
+      );
+      setuserSweets((prevSweets) => {
+        const prev = prevSweets as any;
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
+      setmySweets((prevSweets) =>
+        prevSweets.map((s) => (s.id === id ? data : s))
       );
     } catch (error) {
       console.error(`Error unbookmarking sweet ${id}:`, error);
