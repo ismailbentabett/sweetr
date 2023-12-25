@@ -92,7 +92,7 @@ const MainSidebar: Component = (props: any) => {
                 opener={() => (
                   <div class="my-3 flex justify-center items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xlcursor-pointer">
                     <Show when={user()}>
-                      <Avatar username={user().data.name}  />
+                      <Avatar username={user().data.name} userId={user().data.id} />
                     </Show>
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
                       <Show when={user()}>
