@@ -7,6 +7,7 @@ import {
   JSX,
 } from "solid-js";
 import axios from "axios";
+import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
 const baseUrl = "http://localhost:8000";
@@ -150,6 +151,7 @@ export const AuthProvider = (
       console.error(error);
     }
   };
+  const { showToast } = useToast() as any;
 
   const updateUser = async (data: {
     name: string;
@@ -175,14 +177,13 @@ export const AuthProvider = (
         }
       );
 
-      const userData = userResponse.data;
-      setUser(userData);
+      showToast("Profile updated successfully", { duration: 3000 });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const value = { user, login, register, logout, isAuthenticated , updateUser};
+  const value = { user, login, register, logout, isAuthenticated, updateUser };
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
