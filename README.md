@@ -4,9 +4,9 @@
 twitter for people who cannot spell their Ts using solid js and firebaser and tailwind css
 
 
-
+<div style="text-align:center">
 <img src="./public/logo.svg" width="250">
-
+</div>
 
 ## Run Locally (Client)
 
