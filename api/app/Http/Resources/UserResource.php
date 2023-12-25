@@ -23,6 +23,8 @@ class UserResource extends JsonResource
             'following' => $user->followings,
             'following_count' => $user->followings()->count(),
             'followers_count' => $user->followers()->count(),
+            'bio' => $this->bio,
+            'website' => $this->website,
             'email' => $this->email,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
