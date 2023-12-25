@@ -7,6 +7,7 @@ import {
 } from "solid-js";
 import { Sweet } from "../types/Sweet";
 import axios from "../helpers/axios";
+import { useToast } from "./ToastContext";
 
 type SweetContextValue = {
   sweet: any;
@@ -34,6 +35,7 @@ export const SweetProvider = (props: { children: any }) => {
 
   const [mySweets, setmySweets] = createSignal<any[]>([]);
   const [userSweets, setuserSweets] = createSignal<any[]>([]);
+  const { showToast } = useToast() as any;
 
   createEffect(() => {
     console.log("mySweets", mySweets());
@@ -73,9 +75,18 @@ export const SweetProvider = (props: { children: any }) => {
   const createSweet = async (data: Sweet) => {
     try {
       const response = await axios.post("/sweets", data);
-      setSweets((prevSweets) => [response.data.data, ...prevSweets]);
+
+      if (response.status === 201) {
+        // Assuming a status code of 201 indicates a successful creation
+        setSweets((prevSweets) => [response.data.data, ...prevSweets]);
+        showToast("Sweet created successfully", { duration: 3000 });
+      } else {
+        console.error("Unexpected status code:", response.status);
+        showToast("Failed to create sweet", { duration: 3000 });
+      }
     } catch (error) {
       console.error("Error creating sweet:", error);
+      showToast("Failed to create sweet", { duration: 3000 });
     }
   };
 
