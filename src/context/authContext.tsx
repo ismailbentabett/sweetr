@@ -11,9 +11,11 @@ import axios from "axios";
 const AuthContext = createContext();
 const baseUrl = "http://localhost:8000";
 
-export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown } & {
-  children: JSX.Element;
-}) => {
+export const AuthProvider = (
+  props: JSX.IntrinsicAttributes & { value: unknown } & {
+    children: JSX.Element;
+  }
+) => {
   const [user, setUser] = createSignal(null);
   const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 
@@ -149,7 +151,38 @@ export const AuthProvider = (props: JSX.IntrinsicAttributes & { value: unknown }
     }
   };
 
-  const value = { user, login, register, logout, isAuthenticated };
+  const updateUser = async (data: {
+    name: string;
+    email: string;
+    bio: string;
+    website: string;
+  }) => {
+    try {
+      await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+
+      const userResponse = await axios.put(
+        `${baseUrl}/user/profile-information `,
+        data,
+        {
+          withCredentials: true,
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN",
+          withXSRFToken: true,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      const userData = userResponse.data;
+      setUser(userData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const value = { user, login, register, logout, isAuthenticated , updateUser};
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
