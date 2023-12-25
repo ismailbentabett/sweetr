@@ -95,7 +95,7 @@ const ProfileScreen: Component = () => {
             </dl>
           </div>
           <Show
-            when={mySweets().data.length > 0}
+            when={mySweets().data}
             fallback={
               <div>
                 <Empty />
