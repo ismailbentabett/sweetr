@@ -7,14 +7,13 @@ import Empty from "../components/Empty";
 const LikesScreen: Component = () => {
   const { likes, fetchLikes } = useUser() as any;
 
+  createEffect(() => {
     fetchLikes();
-;
-
+  });
   return (
     <Authenticatedlayout>
-        {JSON.stringify(likes())}
-    {/*   <Show
-        when={likes().data.length > 0}
+      <Show
+        when={JSON.stringify(likes().data) !== "[]"}
         fallback={
           <div>
             <Empty />
@@ -22,7 +21,7 @@ const LikesScreen: Component = () => {
         }
       >
         <For each={likes().data}>{(sweet) => <SweetPost sweet={sweet} />}</For>
-      </Show> */}
+      </Show>
     </Authenticatedlayout>
   );
 };
