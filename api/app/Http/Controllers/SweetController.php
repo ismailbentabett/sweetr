@@ -8,9 +8,16 @@ use App\Models\Sweet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maize\Markable\Models\Like;
+use Maize\Markable\Models\Bookmark;
+
 
 class SweetController extends Controller
 {
+
+    // App/Http/Controllers/SweetsController.php
+
+
     public function index()
     {
         $sweets = Sweet::with('user')->latest()->get();
