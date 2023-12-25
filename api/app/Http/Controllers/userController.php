@@ -63,7 +63,7 @@ class userController extends Controller
         $authUser = User::find(auth()->user()->id);
 
 
-        $isFollower = $authUser->isFollower($user);
+        $isFollower = $authUser->isFollowedBy($user);
 
         return response()->json([
             'isFollower' => $isFollower,
