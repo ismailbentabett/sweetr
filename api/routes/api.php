@@ -67,7 +67,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/isFollowing/{id}', [userController::class, 'isFollowing']);
         Route::get('/isFollower/{id}', [userController::class, 'isFollower']);
         Route::get('/isFollowedBy/{followeeId}/{followerId}', [userController::class, 'isFollowedBy']);
-        Route::get('/likes', [UserController::class, 'likedSweets']);
-        Route::get('/bookmarks', [UserController::class, 'bookmarkedSweets']);
     });
+
+
+    Route::get('/liked', [sweetInteractionsController::class, 'likedSweets']);
+    Route::get('/bookmarked', [sweetInteractionsController::class, 'bookmarkedSweets']);
 });
