@@ -12,7 +12,25 @@ use Illuminate\Http\Request;
 
 class sweetInteractionsController extends Controller
 {
+    public function likedSweets()
+    {
 
+
+        $likes = Sweet::whereHasLike(
+            auth()->user()
+        )->get();
+
+        return SweetResource::collection($likes);
+    }
+
+    public function bookmarkedSweets()
+    {
+        $bookmarks = Sweet::whereHasBookmark(
+            auth()->user()
+        )->get();
+
+        return SweetResource::collection($bookmarks);
+    }
 
     public function like($id)
     {
