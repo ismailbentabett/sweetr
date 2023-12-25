@@ -1,4 +1,4 @@
-import { Component, createEffect } from "solid-js";
+import { Component, Show, createEffect } from "solid-js";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import { useAuth } from "../context/authContext";
 import useForm from "../hooks/useForm";
@@ -15,6 +15,7 @@ const SettingScreen: Component = () => {
   });
 
   createEffect(() => {
+    console.log(user());
     handleChange("email", user().data.email ? user().data.email : "");
     handleChange("name", user().data.name ? user().data.name : "");
     handleChange("website", user().data.website ? user().data.website : "");
@@ -23,6 +24,7 @@ const SettingScreen: Component = () => {
 
   const handleUpdate = async () => {
     try {
+      console.log(values());
       // Call the login function from the AuthContext
       updateUser({
         email: values().email,
@@ -39,6 +41,7 @@ const SettingScreen: Component = () => {
 
   return (
     <Authenticatedlayout>
+      <Show when={user()}>
       <div class="p-2 md:p-4">
         <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
           <h2 class="pl-6 text-2xl font-bold sm:text-xl">Public Profile</h2>
@@ -68,16 +71,16 @@ const SettingScreen: Component = () => {
             <div class="items-center mt-8 sm:mt-14 text-[#202142]">
               <div class="mb-2 sm:mb-6">
                 <label
-                  for="email"
+                  for="name"
                   class="block mb-2 text-sm font-medium text-white dark:text-white"
                 >
                   Your Full Name
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="name"
+                  id="name"
                   class="bg-gray-800 border border-gray-500 text-white text-sm rounded-lg focus:ring-froly-500 focus:border-froly-500 block w-full p-2.5 "
-                  placeholder="your.email@mail.com"
+                  placeholder="your name"
                   required
                   value={values().name}
                   onInput={(e: { target: { value: any } }) =>
@@ -159,6 +162,7 @@ const SettingScreen: Component = () => {
           </div>
         </div>
       </div>
+      </Show>
     </Authenticatedlayout>
   );
 };
