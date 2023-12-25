@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SweetResource;
 use App\Models\Sweet;
 use Maize\Markable\Models\Like;
 use Maize\Markable\Models\Bookmark;
@@ -20,9 +21,7 @@ class sweetInteractionsController extends Controller
 
         Like::add($sweet, $AuthUser);
 
-        return response()->json([
-            'message' => 'You have liked this sweet',
-        ]);
+        return new SweetResource($sweet);
     }
 
     public function unlike($id)
@@ -30,9 +29,7 @@ class sweetInteractionsController extends Controller
         $AuthUser = User::where('id', Auth::user()->id)->first();
         $sweet = Sweet::where("id", $id)->first();
         Like::remove($sweet, $AuthUser);
-        return response()->json([
-            'message' => 'You have unliked this sweet',
-        ]);
+        return new SweetResource($sweet);
     }
 
     public function bookmark($id)
@@ -40,17 +37,13 @@ class sweetInteractionsController extends Controller
         $AuthUser = User::where('id', Auth::user()->id)->first();
         $sweet = Sweet::where("id", $id)->first();
         Bookmark::add($sweet, $AuthUser);
-        return response()->json([
-            'message' => 'You have bookmarked this sweet',
-        ]);
+        return new SweetResource($sweet);
     }
     public function unBookMark($id)
     {
         $AuthUser = User::where('id', Auth::user()->id)->first();
         $sweet = Sweet::where("id", $id)->first();
         Bookmark::remove($sweet, $AuthUser);
-        return response()->json([
-            'message' => 'You have unbookmarked this sweet',
-        ]);
+        return new SweetResource($sweet);
     }
 }
