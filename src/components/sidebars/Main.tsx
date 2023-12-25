@@ -1,13 +1,13 @@
 import { A } from "@solidjs/router";
 import { FiMoreHorizontal } from "solid-icons/fi";
-import { RiDesignQuillPenLine } from "solid-icons/ri";
+import { HiSolidCake } from "solid-icons/hi";
 import { Component, For, Show, createSignal } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
+import { useAuth } from "../../context/authContext";
 import pageSize from "../../helpers/pageSize";
 import Avatar from "../Avatar";
 import Popup from "../utils/Popup";
 import { links } from "./links";
-import { useAuth } from "../../context/authContext";
 
 const MainSidebar: Component = (props: any) => {
   const [isOpen, setIsOpen] = createSignal(false);
@@ -75,10 +75,7 @@ const MainSidebar: Component = (props: any) => {
                     onClick={handleOpenModal}
                     class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200"
                   >
-                    <Show
-                      when={pageSize.isXl()}
-                      fallback={<RiDesignQuillPenLine />}
-                    >
+                    <Show when={pageSize.isXl()} fallback={<HiSolidCake />}>
                       <div>Sweet It</div>
                     </Show>
                   </button>
@@ -92,7 +89,10 @@ const MainSidebar: Component = (props: any) => {
                 opener={() => (
                   <div class="my-3 flex justify-center items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xlcursor-pointer">
                     <Show when={user()}>
-                      <Avatar username={user().data.name} userId={user().data.id} />
+                      <Avatar
+                        username={user().data.name}
+                        userId={user().data.id}
+                      />
                     </Show>
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
                       <Show when={user()}>
