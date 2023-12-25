@@ -47,3 +47,13 @@ twitter for people who cannot spell their Ts using solid js and firebaser and ta
 - [ ]  Add better loading states
 - [ ]  Refactor code and fix messy state management
 - [ ]  Add More Features (Planning to add a lot more features)
+- [ ]  Add Image Uploads
+- [ ]  Add Video Uploads
+- [ ]  Add Notifications
+- [ ]  Add Search
+- [ ]  Add Hashtags
+- [ ]  Add Mentions
+- [ ]  Add DMs
+- [ ]  Add Groups
+- [ ]  Add Stories
+- [ ]  Add Live Streaming
