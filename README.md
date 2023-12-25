@@ -36,3 +36,14 @@ twitter for people who cannot spell their Ts using solid js and firebaser and ta
 ```bash
   php artisan serve
 ```
+
+## Todos
+
+- [ ]  Add Form Validation
+- [ ]  Add More Interactions liek block, mute, etc
+- [ ]  Add More Profile Settings
+- [ ]  Add better auth system
+- [ ]  Add better error handling
+- [ ]  Add better loading states
+- [ ]  Refactor code and fix messy state management
+- [ ]  Add More Features (Planning to add a lot more features)
