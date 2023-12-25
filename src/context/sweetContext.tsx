@@ -8,6 +8,7 @@ import {
 import { Sweet } from "../types/Sweet";
 import axios from "../helpers/axios";
 import { useToast } from "./ToastContext";
+import { useUser } from "./userContext";
 
 type SweetContextValue = {
   sweet: any;
@@ -122,11 +123,17 @@ export const SweetProvider = (props: { children: any }) => {
   };
 
 
-  
+
+
+  const {fetchBookmarks ,fetchLikes } = useUser() as any;
+
+ 
+ 
   const likeSweet = async (id: number | string) => {
     try {
       const response = await axios.post(`/sweets/like/${id}`);
       const data = response.data.data;
+     
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? data : s))
       );
@@ -159,6 +166,8 @@ export const SweetProvider = (props: { children: any }) => {
     try {
       const response = await axios.post(`/sweets/unlike/${id}`);
       const data = response.data.data;
+      //filter out the sweet from the array
+      fetchLikes();
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? data : s))
       );
@@ -222,6 +231,7 @@ export const SweetProvider = (props: { children: any }) => {
     try {
       const response = await axios.post(`/sweets/unbookmark/${id}`);
       const data = response.data.data;
+      fetchBookmarks();
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? data : s))
       );
