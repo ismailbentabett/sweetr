@@ -15,8 +15,9 @@ class userInteractionsController extends Controller
         $AuthUser = User::where("id", Auth::user()->id)->first();
         $userTofollow = User::where('id', $id)->first();
         $AuthUser->follow($userTofollow);
+        $isFollowint = $AuthUser->isFollowing($userTofollow);
         return response()->json([
-            'message' => 'You are now following ' . $userTofollow->name,
+            'isFollowing' => $isFollowint,
         ]);
     }
 
@@ -27,10 +28,13 @@ class userInteractionsController extends Controller
             'id',
             $id
         )->first();
+
+
         $AuthUser->unfollow($userToUnfollow);
+
+        $isFollowint = $AuthUser->isFollowing($userToUnfollow);
         return response()->json([
-            'message' => '
-                You are no longer following ' . $userToUnfollow->name,
+            'isFollowing' => $isFollowint,
         ]);
     }
 
