@@ -5,8 +5,7 @@ twitter for people who cannot spell their Ts using solid js and firebaser and ta
 
 
 
-![Logo](./public/logo.svg)
-<img src="./public/logo.svg" width="48">
+<img src="./public/logo.svg" width="250">
 
 
 ## Run Locally (Client)
