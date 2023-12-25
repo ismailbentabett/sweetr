@@ -7,17 +7,18 @@ import pageSize from "../../helpers/pageSize";
 import Avatar from "../Avatar";
 import Popup from "../utils/Popup";
 import { links } from "./links";
+import { useAuth } from "../../context/authContext";
 
-const MainSidebar: Component = (props : any) => {
-  const [isOpen, setIsOpen] =  createSignal(false);
-const handleOpenModal = () => {
-  setIsOpen(old => !old);
-  props.openSideBar(isOpen());
-}
+const MainSidebar: Component = (props: any) => {
+  const [isOpen, setIsOpen] = createSignal(false);
+  const { user } = useAuth() as any;
+  const handleOpenModal = () => {
+    setIsOpen((old) => !old);
+    props.openSideBar(isOpen());
+  };
 
   return (
     <header class="lg:flex-grow flex-it items-end">
-       
       <div class="xl:w-80 w-20 flex-it">
         <div class="h-full fixed flex-it top-0">
           <div class="flex-it h-full xl:w-80 w-20 overflow-y-auto px-3 justify-between">
@@ -72,7 +73,8 @@ const handleOpenModal = () => {
                 <div class="bg-froly-400 hover:bg-froly-500 text-white font-bold py-2 px-4 rounded-full flex-it transition">
                   <button
                     onClick={handleOpenModal}
-                  class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200">
+                    class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200"
+                  >
                     <Show
                       when={pageSize.isXl()}
                       fallback={<RiDesignQuillPenLine />}
@@ -89,9 +91,15 @@ const handleOpenModal = () => {
               <Popup
                 opener={() => (
                   <div class="my-3 flex justify-center items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xlcursor-pointer">
-                    <Avatar username="ismailbentabett" />
+                    <Show when={user()}>
+                      <Avatar username={user().data.name}  />
+                    </Show>
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
-                      <div class="flex-it mx-3 font-bold">"ismailbentabett"</div>
+                      <Show when={user()}>
+                        <div class="flex-it mx-3 font-bold">
+                          {user().data.name}
+                        </div>
+                      </Show>
                       <div class="flex-it">
                         <FiMoreHorizontal />
                       </div>
@@ -112,4 +120,3 @@ export default MainSidebar;
 function props(props: {}): Element {
   throw new Error("Function not implemented.");
 }
-
