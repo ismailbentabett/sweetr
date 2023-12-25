@@ -17,6 +17,7 @@
     "js-cookie": "^3.0.5",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.7",
+    "solid-toast": "^0.5.0",
     "solid-top-loading-bar": "^0.3.1",
     "terracotta": "^1.0.3"
   },
