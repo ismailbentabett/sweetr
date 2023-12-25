@@ -41,8 +41,8 @@ export const UserProvider = (props: { children: any }) => {
   const [isFollowing, setIsFollowing] = createSignal(true);
   const [isFollower, setIsFollower] = createSignal(true);
   const [isFollowedBy, setIsFollowedBy] = createSignal(true);
-  const [likes, setLikes] = createSignal(true);
-  const [bookmarks, setBookmarks] = createSignal(true);
+  const [likes, setLikes] = createSignal([]);
+  const [bookmarks, setBookmarks] = createSignal([]);
 
   const fetchLikes = async () => {
     try {
