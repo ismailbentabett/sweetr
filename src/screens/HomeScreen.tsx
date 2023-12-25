@@ -1,5 +1,5 @@
 import { FaRegularImage } from "solid-icons/fa";
-import { Component, For, Show } from "solid-js";
+import { Component, For, Show, createEffect } from "solid-js";
 import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import { useAuth } from "../context/authContext";
@@ -9,7 +9,7 @@ import SweetPost from "../components/sweets/SweetPost";
 
 const HomeScreen: Component = () => {
   const { user } = useAuth() as any;
-  const { sweets , createSweet } = useSweet() as any;
+  const { sweets , createSweet  , fetchSweets} = useSweet() as any;
   const { values, errors, isValid, handleChange, handleSubmit } = useForm({
     content: "",
   });
@@ -20,6 +20,10 @@ const HomeScreen: Component = () => {
     //empty the textarea
     handleChange("content", "");
   };
+
+  createEffect(() => {
+    fetchSweets();
+  });
 
   return (
     <Authenticatedlayout>
