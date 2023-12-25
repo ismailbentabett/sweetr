@@ -46,7 +46,7 @@ const SettingScreen: Component = () => {
           <div class="grid max-w-2xl mx-auto mt-8">
             <div class="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
               <div class="object-cover w-40 h-40 p-1.5 rounded-full ring-2 ring-froly-300 dark:ring-froly-500">
-                <Avatar username={user().data.name} size={140} />{" "}
+                <Avatar username={user().data.name} size={140} userId={user().data.id} />
               </div>
 
               <div class="flex flex-col space-y-5 sm:ml-8">
