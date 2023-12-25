@@ -1,5 +1,5 @@
 import { FaRegularImage } from "solid-icons/fa";
-import { Component, For } from "solid-js";
+import { Component, For, Show } from "solid-js";
 import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import { useAuth } from "../context/authContext";
@@ -26,9 +26,11 @@ const HomeScreen: Component = () => {
       {/* HOME PAGE START */}
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
+          <Show when={user()}>
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-            <Avatar username={user().data.name} size={140} />{" "}
+            <Avatar username={user().data.name} size={140} userId={user().data.id} />
           </div>
+          </Show>
         </div>
         {/* MESSENGER START */}
         <div class="flex-it flex-grow">
