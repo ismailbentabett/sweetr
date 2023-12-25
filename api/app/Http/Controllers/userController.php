@@ -2,12 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SweetResource;
+use App\Models\Sweet;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class userController extends Controller
 {
     public function index()
+    {
+        $users = User::all();
+        return response()->json([
+            'users' => $users,
+        ]);
+    }
+
+
+    public function likedSweets()
+    {
+        $users = User::all();
+        return response()->json([
+            'users' => $users,
+        ]);
+    }
+
+    //bookmarked sweets
+    public function bookmarkedSweets()
     {
         $users = User::all();
         return response()->json([
