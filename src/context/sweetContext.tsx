@@ -121,6 +121,8 @@ export const SweetProvider = (props: { children: any }) => {
     }
   };
 
+
+  
   const likeSweet = async (id: number | string) => {
     try {
       const response = await axios.post(`/sweets/like/${id}`);
