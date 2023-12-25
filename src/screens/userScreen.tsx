@@ -1,13 +1,12 @@
 import { useNavigate, useParams } from "@solidjs/router";
 import { Component, For, Show, createEffect, createSignal } from "solid-js";
 import Avatar from "../components/Avatar";
+import Empty from "../components/Empty";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import SweetPost from "../components/sweets/SweetPost";
 import { useAuth } from "../context/authContext";
 import { useSweet } from "../context/sweetContext";
 import { useUser } from "../context/userContext";
-import SweetPostSkeleton from "../components/skeletons/SweetPostSkeleton";
-import Empty from "../components/Empty";
 
 const userScreen: Component = () => {
   //get user id from url
@@ -32,21 +31,19 @@ const userScreen: Component = () => {
   createEffect(() => {
     fetchUserSweets(userId);
     getUser(userId);
-
-    if (authUser() && userId == authUser().id) {
+    console.log(authUser());
+   if (Number(userId) == authUser()?.data.id) {
       navigate("/profile");
-    }
-
+    } 
     if (authUser()) {
       isFollowingfunc(userId);
       isFollowerfunc(userId);
     }
   });
 
-  const [followText , SetfollowText  ] = createSignal(false);
+  const [followText, SetfollowText] = createSignal(false);
 
   const handleMouseOverFollow = () => {
-     
     SetfollowText(true);
   };
 
@@ -81,7 +78,11 @@ const userScreen: Component = () => {
             <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
               <div class="flex">
                 <span class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32">
-                  <Avatar username={user().user.name} size={140}  userId={user().user.id} />
+                  <Avatar
+                    username={user().user.name}
+                    size={140}
+                    userId={user().user.id}
+                  />
                 </span>{" "}
               </div>
               <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
@@ -110,19 +111,19 @@ const userScreen: Component = () => {
                     <span class="font-bold text-white">Block</span>
                   </button> */}
                   <Show when={isFollowing().isFollowing}>
-                  <button
-                    onClick={handleUnfollow}
-                    type="button"
-                    class={`inline-flex justify-center rounded-3xl border border-white-300 hover:text-red-600  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
-                      followText() ? "unfollow" : ""
-                    }`}
-                    onmouseover={handleMouseOverFollow}
-                    onmouseout={handleMouseOutFollow}
-                  >
-                    <span class="font-bold text-white hover:text-red-600">
-                      {followText() ? "Unfollow" : "Following"}
-                    </span>
-                  </button>
+                    <button
+                      onClick={handleUnfollow}
+                      type="button"
+                      class={`inline-flex justify-center rounded-3xl border border-white-300 hover:text-red-600  text-white px-7 py-2 text-sm font-medium shadow-sm hover:border-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-froly-500 focus:ring-offset-2 ${
+                        followText() ? "unfollow" : ""
+                      }`}
+                      onmouseover={handleMouseOverFollow}
+                      onmouseout={handleMouseOutFollow}
+                    >
+                      <span class="font-bold text-white hover:text-red-600">
+                        {followText() ? "Unfollow" : "Following"}
+                      </span>
+                    </button>
                   </Show>
                   {/*      <button
                     type="button"
@@ -150,12 +151,11 @@ const userScreen: Component = () => {
           </div>
 
           <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8 mb-10 border-b border-gray-700 pb-10">
-          <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div class="sm:col-span-1">
                 {}
-              <Show when={user().user.website}>
-
-                <dt class="text-sm font-medium text-gray-500">Website</dt>
+                <Show when={user().user.website}>
+                  <dt class="text-sm font-medium text-gray-500">Website</dt>
                   <a
                     href={user().user.website}
                     class="font-medium text-froly-600 dark:text-froly-500 hover:underline"
@@ -175,10 +175,17 @@ const userScreen: Component = () => {
               </div>
             </dl>
           </div>
-          <Show when={userSweets().data.length > 0} fallback={<div><Empty/></div>}>
-          <For each={userSweets().data} >
-            {(sweet) => <SweetPost sweet={sweet} />}
-          </For>
+          <Show
+            when={userSweets().data}
+            fallback={
+              <div>
+                <Empty />
+              </div>
+            }
+          >
+            <For each={userSweets().data}>
+              {(sweet) => <SweetPost sweet={sweet} />}
+            </For>
           </Show>
         </div>
       </Show>
