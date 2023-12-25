@@ -27,7 +27,7 @@ const HomeScreen: Component = () => {
       <div class="flex-it py-1 px-4 flex-row">
         <div class="flex-it mr-4">
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-            <Avatar username="ismailbentabett" />
+            <Avatar username={user().data.name} size={140} />{" "}
           </div>
         </div>
         {/* MESSENGER START */}
