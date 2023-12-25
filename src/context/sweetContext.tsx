@@ -35,10 +35,15 @@ export const SweetProvider = (props: { children: any }) => {
   const [mySweets, setmySweets] = createSignal<any[]>([]);
   const [userSweets, setuserSweets] = createSignal<any[]>([]);
 
+  createEffect(() => {
+    console.log("mySweets", mySweets());
+    console.log("userSweets", userSweets());
+    console.log("sweets", sweets());
+  });
+
   const fetchSweets = async () => {
     try {
       const response = await axios.get("/sweets");
-      console.log(response.data);
       setSweets(response.data.data);
     } catch (error) {
       console.error("Error fetching sweets:", error);
@@ -55,7 +60,6 @@ export const SweetProvider = (props: { children: any }) => {
   const fetchUserSweets = async (id: string) => {
     try {
       const response = await axios.get("/sweets/user/" + id);
-      console.log(response.data);
       setuserSweets(response.data);
     } catch (error) {
       console.error("Error fetching sweets:", error);
@@ -69,7 +73,6 @@ export const SweetProvider = (props: { children: any }) => {
   const createSweet = async (data: Sweet) => {
     try {
       const response = await axios.post("/sweets", data);
-      console.log(response.data.data);
       setSweets((prevSweets) => [response.data.data, ...prevSweets]);
     } catch (error) {
       console.error("Error creating sweet:", error);
@@ -109,20 +112,28 @@ export const SweetProvider = (props: { children: any }) => {
     try {
       const response = await axios.post(`/sweets/like/${id}`);
       const data = response.data.data;
-      console.log(data);
       setSweets((prevSweets) =>
         prevSweets.map((s) => (s.id === id ? data : s))
       );
       setuserSweets((prevSweets) => {
         const prev = prevSweets as any;
+
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
         let dd = prev.data.map((s: { id: string | number }) =>
           s.id === id ? data : s
         );
         return { data: dd } as any;
       });
-      setmySweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? data : s))
-      );
+      setmySweets((prevSweets) => {
+        const prev = prevSweets as any;
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
     } catch (error) {
       console.error(`Error liking sweet ${id}:`, error);
     }
@@ -137,14 +148,23 @@ export const SweetProvider = (props: { children: any }) => {
       );
       setuserSweets((prevSweets) => {
         const prev = prevSweets as any;
+
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
         let dd = prev.data.map((s: { id: string | number }) =>
           s.id === id ? data : s
         );
         return { data: dd } as any;
       });
-      setmySweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? data : s))
-      );
+      setmySweets((prevSweets) => {
+        const prev = prevSweets as any;
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
     } catch (error) {
       console.error(`Error unliking sweet ${id}:`, error);
     }
@@ -159,14 +179,22 @@ export const SweetProvider = (props: { children: any }) => {
       );
       setuserSweets((prevSweets) => {
         const prev = prevSweets as any;
+
+        if (Array.isArray(prev) && prev.length === 0) return prev;
         let dd = prev.data.map((s: { id: string | number }) =>
           s.id === id ? data : s
         );
         return { data: dd } as any;
       });
-      setmySweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? data : s))
-      );
+      setmySweets((prevSweets) => {
+        const prev = prevSweets as any;
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
     } catch (error) {
       console.error(`Error bookmarking sweet ${id}:`, error);
     }
@@ -181,14 +209,23 @@ export const SweetProvider = (props: { children: any }) => {
       );
       setuserSweets((prevSweets) => {
         const prev = prevSweets as any;
+
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
         let dd = prev.data.map((s: { id: string | number }) =>
           s.id === id ? data : s
         );
         return { data: dd } as any;
       });
-      setmySweets((prevSweets) =>
-        prevSweets.map((s) => (s.id === id ? data : s))
-      );
+      setmySweets((prevSweets) => {
+        const prev = prevSweets as any;
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
+        let dd = prev.data.map((s: { id: string | number }) =>
+          s.id === id ? data : s
+        );
+        return { data: dd } as any;
+      });
     } catch (error) {
       console.error(`Error unbookmarking sweet ${id}:`, error);
     }
