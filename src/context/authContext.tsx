@@ -85,6 +85,8 @@ export const AuthProvider = (
 
       const userData = userResponse.data;
       setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("isAuthenticated", "true");
     } catch (error) {
       console.error(error);
     }
