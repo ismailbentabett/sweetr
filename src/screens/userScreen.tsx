@@ -81,7 +81,7 @@ const userScreen: Component = () => {
             <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
               <div class="flex">
                 <span class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32">
-                  <Avatar username={user().user.name} size={140}  userId={user().data.id} />
+                  <Avatar username={user().user.name} size={140}  userId={user().user.id} />
                 </span>{" "}
               </div>
               <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
@@ -152,14 +152,15 @@ const userScreen: Component = () => {
           <div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8 mb-10 border-b border-gray-700 pb-10">
           <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div class="sm:col-span-1">
-              <Show when={user().data.website}>
+                {}
+              <Show when={user().user.website}>
 
                 <dt class="text-sm font-medium text-gray-500">Website</dt>
                   <a
-                    href={user().data.website}
+                    href={user().user.website}
                     class="font-medium text-froly-600 dark:text-froly-500 hover:underline"
                   >
-                    {user().data.website ? user().data.website : "No website"}
+                    {user().user.website ? user().user.website : "No website"}
                   </a>
                 </Show>
               </div>
@@ -168,7 +169,7 @@ const userScreen: Component = () => {
                 <dt class="text-sm font-medium text-gray-500">About</dt>
                 <dd class="mt-1 max-w-prose space-y-5 text-sm text-white">
                   <p>
-                    {user().data.bio ? user().data.bio : "No bio available"}
+                    {user().user.bio ? user().user.bio : "No bio available"}
                   </p>
                 </dd>
               </div>
