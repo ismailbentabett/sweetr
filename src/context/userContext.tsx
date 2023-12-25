@@ -141,7 +141,9 @@ export const UserProvider = (props: { children: any }) => {
   const follow = async (id: string | number) => {
     try {
       const response = await axios.post(`user/follow/${id}`);
-      setIsFollowedBy(response.data);
+      console.log(response.data);
+
+      setIsFollowing(response.data);
     } catch (error) {
       console.error(`Error fetching user ${id}:`, error);
       throw error;
@@ -151,7 +153,8 @@ export const UserProvider = (props: { children: any }) => {
   const unfollow = async (id: string | number) => {
     try {
       const response = await axios.post(`user/unfollow/${id}`);
-      setIsFollowedBy(response.data);
+      console.log(response.data);
+  setIsFollowing(response.data);
     } catch (error) {
       console.error(`Error fetching user ${id}:`, error);
       throw error;
