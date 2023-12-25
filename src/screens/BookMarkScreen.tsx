@@ -6,14 +6,15 @@ import Empty from "../components/Empty";
 
 const BookMarkScreen: Component = () => {
   const { bookmarks, fetchBookmarks } = useUser() as any;
-
+  createEffect(() => {
     fetchBookmarks();
-  
+  });
+
   return (
     <Authenticatedlayout>
-        {JSON.stringify(bookmarks())}
- {/*      <Show
-        when={bookmarks().data.length > 0}
+   
+     <Show
+        when={bookmarks()}
         fallback={
           <div>
             <Empty />
@@ -23,7 +24,7 @@ const BookMarkScreen: Component = () => {
         <For each={bookmarks().data}>
           {(sweet) => <SweetPost sweet={sweet} />}
         </For>
-      </Show> */}
+      </Show> 
     </Authenticatedlayout>
   );
 };
