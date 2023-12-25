@@ -3,6 +3,7 @@ import { createContext, createSignal, useContext } from "solid-js";
 import { User } from "../types/User";
 
 import axios from "../helpers/axios";
+import { useToast } from "./ToastContext";
 
 type UserContextValue = {
   user: any;
@@ -33,6 +34,8 @@ type UserContextValue = {
 const userContext = createContext<UserContextValue>();
 
 export const UserProvider = (props: { children: any }) => {
+  const { showToast } = useToast() as any;
+
   const [users, setUsers] = createSignal<User[]>([]);
   const [user, setUser] = createSignal<User | null>(null);
   const [isFollowing, setIsFollowing] = createSignal(true);
@@ -43,7 +46,7 @@ export const UserProvider = (props: { children: any }) => {
 
   const fetchLikes = async () => {
     try {
-      axios.get
+      axios.get;
       const response = await axios.get("/user/likes");
       setLikes(response.data);
     } catch (error) {
@@ -144,6 +147,7 @@ export const UserProvider = (props: { children: any }) => {
       console.log(response.data);
 
       setIsFollowing(response.data);
+      showToast("Followed successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error fetching user ${id}:`, error);
       throw error;
@@ -154,7 +158,8 @@ export const UserProvider = (props: { children: any }) => {
     try {
       const response = await axios.post(`user/unfollow/${id}`);
       console.log(response.data);
-  setIsFollowing(response.data);
+      setIsFollowing(response.data);
+      showToast("Unfollowed successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error fetching user ${id}:`, error);
       throw error;
