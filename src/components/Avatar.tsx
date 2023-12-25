@@ -2,8 +2,10 @@ import { createAvatar } from "@dicebear/core";
 import { thumbs } from "@dicebear/collection";
 import { createEffect, createSignal } from "solid-js";
 import { Show } from "solid-js";
+import { A } from "@solidjs/router";
 
 interface AvatarProps {
+  userId?: any;
   username: any;
   size?: number; // Add the size prop
 }
@@ -23,13 +25,16 @@ function Avatar(props: AvatarProps) {
   return (
     <div>
       <Show when={avatar()}>
-        <div class={`w-${props.size} h-${props.size} overflow-visible`}>
+        <A
+          class={`w-${props.size} h-${props.size} overflow-visible`}
+          href={`/user/${props.userId}`}
+        >
           <img
             class="rounded-full"
             src={avatar()}
             alt={`Avatar for ${props.username}`}
           ></img>
-        </div>
+        </A>
       </Show>
     </div>
   );
