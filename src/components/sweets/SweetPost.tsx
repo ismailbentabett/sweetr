@@ -58,7 +58,7 @@ const SweetPost = (props: { sweet: Sweet }) => {
         <div class="flex-it flex-row">
           <div class="flex-it mr-4">
             <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-              <Avatar username={sweet().user!.name} size={140} />{" "}
+              <Avatar username={sweet().user!.name} size={140} userId={user().data.id} />
             </div>
           </div>
           <article class="flex-it flex-grow flex-shrink cursor-pointer">
