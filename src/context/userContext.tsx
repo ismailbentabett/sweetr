@@ -1,10 +1,8 @@
 // userContext.js
-import axios from "axios";
 import { createContext, createSignal, useContext } from "solid-js";
 import { User } from "../types/User";
 
-axios.defaults.baseURL = "http://localhost:8000/api";
-axios.defaults.withCredentials = true;
+import axios from "../helpers/axios";
 
 type UserContextValue = {
   user: any;
@@ -12,6 +10,8 @@ type UserContextValue = {
   isFollowing: any;
   isFollower: any;
   isFollowedBy: any;
+  likes: any;
+  bookmarks: any;
   fetchUsers: () => Promise<void>;
   getUser: (id: string | number) => Promise<void>;
 
@@ -26,6 +26,8 @@ type UserContextValue = {
 
   follow: (id: string | number) => Promise<void>;
   unfollow: (id: string | number) => Promise<void>;
+  fetchLikes: () => Promise<void>;
+  fetchBookmarks: () => Promise<void>;
 };
 
 const userContext = createContext<UserContextValue>();
@@ -36,6 +38,29 @@ export const UserProvider = (props: { children: any }) => {
   const [isFollowing, setIsFollowing] = createSignal(true);
   const [isFollower, setIsFollower] = createSignal(true);
   const [isFollowedBy, setIsFollowedBy] = createSignal(true);
+  const [likes, setLikes] = createSignal(true);
+  const [bookmarks, setBookmarks] = createSignal(true);
+
+  const fetchLikes = async () => {
+    try {
+      axios.get
+      const response = await axios.get("/user/likes");
+      setLikes(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw error;
+    }
+  };
+
+  const fetchBookmarks = async () => {
+    try {
+      const response = await axios.get("/user/bookmarks");
+      setBookmarks(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw error;
+    }
+  };
 
   const fetchUsers = async () => {
     try {
@@ -141,6 +166,8 @@ export const UserProvider = (props: { children: any }) => {
         isFollowing,
         isFollower,
         isFollowedBy,
+        likes,
+        bookmarks,
         fetchUsers,
         getUser,
         updateUser,
@@ -150,6 +177,8 @@ export const UserProvider = (props: { children: any }) => {
         isFollowedByfunc,
         follow,
         unfollow,
+        fetchLikes,
+        fetchBookmarks,
       }}
     >
       {props.children}
