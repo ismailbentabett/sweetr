@@ -1,7 +1,25 @@
-import { Component } from "solid-js";
+import { Component, createEffect } from "solid-js";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
+import { useAuth } from "../context/authContext";
+import useForm from "../hooks/useForm";
 
 const SettingScreen: Component = () => {
+  const { user } = useAuth() as any;
+
+  const { values, errors, isValid, handleChange, handleSubmit } = useForm({
+    email: "",
+    name: "",
+    website: "",
+    bio: "",
+  });
+
+  createEffect(() => {
+    handleChange("email", user().data.email ? user().data.email : "");
+    handleChange("name", user().data.name ? user().data.name : "");
+    handleChange("website", user().data.website ? user().data.website : "");
+    handleChange("bio", user().data.bio ? user().data.bio : "");
+  });
+
   return (
     <Authenticatedlayout>
       <div class="p-2 md:p-4">
@@ -46,6 +64,10 @@ const SettingScreen: Component = () => {
                   class="bg-gray-800 border border-gray-500 text-white text-sm rounded-lg focus:ring-froly-500 focus:border-froly-500 block w-full p-2.5 "
                   placeholder="your.email@mail.com"
                   required
+                  value={values().name}
+                  onInput={(e: { target: { value: any } }) =>
+                    handleChange("name", e.target.value)
+                  }
                 />
               </div>
 
@@ -62,6 +84,10 @@ const SettingScreen: Component = () => {
                   class="bg-gray-800 border border-gray-500 text-white text-sm rounded-lg focus:ring-froly-500 focus:border-froly-500 block w-full p-2.5 "
                   placeholder="your.email@mail.com"
                   required
+                  value={values().email}
+                  onInput={(e: { target: { value: any } }) =>
+                    handleChange("email", e.target.value)
+                  }
                 />
               </div>
 
@@ -78,6 +104,10 @@ const SettingScreen: Component = () => {
                   class="bg-gray-800 border border-gray-500 text-white text-sm rounded-lg focus:ring-froly-500 focus:border-froly-500 block w-full p-2.5 "
                   placeholder="your website"
                   required
+                  value={values().website}
+                  onInput={(e: { target: { value: any } }) =>
+                    handleChange("website", e.target.value)
+                  }
                 />
               </div>
 
@@ -93,6 +123,11 @@ const SettingScreen: Component = () => {
                   rows="4"
                   class="block p-2.5 w-full text-sm text-white bg-gray-800 rounded-lg border border-gray-500 focus:ring-froly-500 focus:border-froly-500 "
                   placeholder="Write your bio here..."
+                  required
+                  value={values().bio}
+                  onInput={(e: { target: { value: any } }) =>
+                    handleChange("bio", e.target.value)
+                  }
                 ></textarea>
               </div>
 
