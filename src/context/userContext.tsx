@@ -47,7 +47,8 @@ export const UserProvider = (props: { children: any }) => {
   const fetchLikes = async () => {
     try {
       axios.get;
-      const response = await axios.get("/user/likes");
+      const response = await axios.get("/liked");
+      console.log(response.data);
       setLikes(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -57,7 +58,7 @@ export const UserProvider = (props: { children: any }) => {
 
   const fetchBookmarks = async () => {
     try {
-      const response = await axios.get("/user/bookmarks");
+      const response = await axios.get("/bookmarked");
       setBookmarks(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -193,6 +194,7 @@ export const UserProvider = (props: { children: any }) => {
     </userContext.Provider>
   );
 };
+
 
 export const useUser = () => {
   const context = useContext(userContext);
