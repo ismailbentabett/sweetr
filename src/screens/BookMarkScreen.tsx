@@ -14,7 +14,7 @@ const BookMarkScreen: Component = () => {
     <Authenticatedlayout>
    
      <Show
-        when={bookmarks()}
+        when={JSON.stringify(bookmarks().data) !== JSON.stringify([])}
         fallback={
           <div>
             <Empty />
