@@ -1,14 +1,14 @@
 import { AiFillHeart, AiOutlineMessage } from "solid-icons/ai";
+import { BsBookmark, BsBookmarkFill } from "solid-icons/bs";
 import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
+import { Show } from "solid-js";
+import { format } from 'timeago.js';
+import { useAuth } from "../../context/authContext";
+import { useSweet } from "../../context/sweetContext";
 import { Sweet } from "../../types/Sweet";
 import Avatar from "../Avatar";
-import { useAuth } from "../../context/authContext";
-import { Show } from "solid-js";
-import { useSweet } from "../../context/sweetContext";
-import { BsBookmark, BsBookmarkFill } from "solid-icons/bs";
 import SweetPostSkeleton from "../skeletons/SweetPostSkeleton";
-
 type Props = {
   sweet: Sweet;
 };
@@ -45,6 +45,10 @@ const SweetPost = (props: { sweet: Sweet }) => {
     deleteSweet(sweet().id);
   };
 
+  
+  
+
+  
   return (
     <Show
       when={user() !== null}
@@ -67,7 +71,9 @@ const SweetPost = (props: { sweet: Sweet }) => {
                 <div>
                   <span class="font-bold">{sweet().user!.name}</span>
                   <span class="mx-2">&#8226;</span>
-                  <span class="text-gray-400">2h</span>
+                  <span class="text-gray-400"> {format(new Date(sweet().created_at))}</span>
+                  
+
                 </div>
                 <Show when={sweet().user!.id === user().data.id}>
                   <button
