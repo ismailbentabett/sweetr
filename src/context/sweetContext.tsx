@@ -116,6 +116,13 @@ export const SweetProvider = (props: { children: any }) => {
     try {
       await axios.delete(`/sweets/${id}`);
       setSweets((prevSweets) => prevSweets.filter((s) => s.id !== id));
+      setmySweets((prevSweets) => {
+        const prev = prevSweets as any;
+        if (Array.isArray(prev) && prev.length === 0) return prev;
+
+        let dd = prev.data.filter((s: { id: string | number }) => s.id !== id);
+        return { data: dd } as any;
+      });
       showToast("Sweet deleted successfully", { duration: 3000 });
     } catch (error) {
       console.error(`Error deleting sweet ${id}:`, error);
