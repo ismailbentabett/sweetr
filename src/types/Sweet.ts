@@ -13,4 +13,6 @@ export interface Sweet {
   likesCount? : number;
   createdAt?: string;
   updatedAt?: string;
+  created_at?: any;
+  updated_at?: any;
 }
