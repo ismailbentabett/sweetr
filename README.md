@@ -1,4 +1,3 @@
-
 # Sweetr
 
 twitter for people who cannot spell their Ts using solid js and firebaser and tailwind css
