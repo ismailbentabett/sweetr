@@ -56,7 +56,6 @@ To run this project, you will need to add the following environment variables to
 
 `VITE_API_URL = ${APP_URL}/api`
 
-
 ## Todos
 
 - [ ] Add Form Validation
