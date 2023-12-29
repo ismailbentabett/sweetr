@@ -1,19 +1,19 @@
-import { Component, For, Show, createEffect } from "solid-js";
-import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
-import { useUser } from "../context/userContext";
-import SweetPost from "../components/sweets/SweetPost";
-import Empty from "../components/Empty";
+import { Component, For, Show, createEffect } from 'solid-js'
+import Authenticatedlayout from '../components/layouts/Authenticatedlayout'
+import { useUser } from '../context/userContext'
+import SweetPost from '../components/sweets/SweetPost'
+import Empty from '../components/Empty'
 
 const LikesScreen: Component = () => {
-  const { likes, fetchLikes } = useUser() as any;
+  const { likes, fetchLikes } = useUser() as any
 
   createEffect(() => {
-    fetchLikes();
-  });
+    fetchLikes()
+  })
   return (
     <Authenticatedlayout>
       <Show
-        when={JSON.stringify(likes().data) !== "[]"}
+        when={JSON.stringify(likes().data) !== '[]'}
         fallback={
           <div>
             <Empty />
@@ -23,7 +23,7 @@ const LikesScreen: Component = () => {
         <For each={likes().data}>{(sweet) => <SweetPost sweet={sweet} />}</For>
       </Show>
     </Authenticatedlayout>
-  );
-};
+  )
+}
 
-export default LikesScreen;
+export default LikesScreen

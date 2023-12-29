@@ -1,11 +1,11 @@
 // components/Authenticatedlayout.tsx
 
-import { useNavigate } from "@solidjs/router";
-import { createEffect, createSignal } from "solid-js";
-import { JSX } from "solid-js/jsx-runtime";
-import Modal from "../form/modal";
-import MainSidebar from "../sidebars/Main";
-import TrendsSidebar from "../sidebars/Trends";
+import { useNavigate } from '@solidjs/router'
+import { createEffect, createSignal } from 'solid-js'
+import { JSX } from 'solid-js/jsx-runtime'
+import Modal from '../form/modal'
+import MainSidebar from '../sidebars/Main'
+import TrendsSidebar from '../sidebars/Trends'
 
 interface AuthenticatedlayoutProps {
   children:
@@ -15,48 +15,48 @@ interface AuthenticatedlayoutProps {
     | JSX.ArrayElement
     | (string & {})
     | null
-    | undefined;
+    | undefined
 }
 
 const Authenticatedlayout = (props: AuthenticatedlayoutProps) => {
-  const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  const navigate = useNavigate()
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
 
   createEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login");
+      navigate('/login')
     }
-  });
+  })
 
-  const [isOpen, setIsOpen] = createSignal(false);
+  const [isOpen, setIsOpen] = createSignal(false)
 
   const handleOpenSidebar = (value: any) => {
-    setIsOpen(value);
-  };
+    setIsOpen(value)
+  }
 
   return (
-    <div class="flex h-screen bg-gray-900 text-gray-100">
+    <div class='flex h-screen bg-gray-900 text-gray-100'>
       {/* Main Content */}
-      <div class="flex flex-grow">
-        <div class="lg:w-1/4">
+      <div class='flex flex-grow'>
+        <div class='lg:w-1/4'>
           <MainSidebar openSidebar={handleOpenSidebar} />
           <Modal isOpen={isOpen()} />
         </div>
 
         {/* Tweets Feed */}
-        <main class="flex-1 p-4  border-x-1 border-solid border-gray-700  xl:max-w-3xl">
-        <div class="flex-it h-14 p-4 xl:text-xl text-sm font-bold z-10 backdrop-blur-md bg-opacity-70">
-                      Sweetr
-                    </div>
+        <main class='flex-1 p-4  border-x-1 border-solid border-gray-700  xl:max-w-3xl'>
+          <div class='flex-it h-14 p-4 xl:text-xl text-sm font-bold z-10 backdrop-blur-md bg-opacity-70'>
+            Sweetr
+          </div>
           {props.children}
         </main>
 
-        <div class="hidden xl:block w-1/5 mx-4 mt-5">
+        <div class='hidden xl:block w-1/5 mx-4 mt-5'>
           <TrendsSidebar />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Authenticatedlayout;
+export default Authenticatedlayout

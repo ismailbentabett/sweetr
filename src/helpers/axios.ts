@@ -1,14 +1,14 @@
-import Axios from "axios";
+import Axios from 'axios'
 
 const axios = Axios.create({
-  baseURL: "http://localhost:8000/api/",
+  baseURL: 'http://localhost:8000/api/',
   withCredentials: true,
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
   headers: {
-    Accept: "application/json",
+    Accept: 'application/json',
   },
-});
+})
 
 axios.interceptors.response.use(null, (err) => {
   const error = {
@@ -16,20 +16,20 @@ axios.interceptors.response.use(null, (err) => {
     original: err,
     validation: {},
     message: null,
-  };
+  }
 
   switch (err.response?.status) {
     case 422:
-      error.validation = err.response.data.errors;
-      break;
+      error.validation = err.response.data.errors
+      break
     case 401:
-      error.message = err.response.data.message;
-      break;
+      error.message = err.response.data.message
+      break
     default:
-      error.message = err.response?.data?.message || err.message;
+      error.message = err.response?.data?.message || err.message
   }
 
-  return Promise.reject(error);
-});
+  return Promise.reject(error)
+})
 
-export default axios;
+export default axios

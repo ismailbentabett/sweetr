@@ -1,132 +1,132 @@
 // context/AuthContext.js
-import axios from "axios";
+import axios from 'axios'
 import {
   JSX,
   createContext,
   createEffect,
   createSignal,
   useContext,
-} from "solid-js";
-import { useToast } from "./ToastContext";
+} from 'solid-js'
+import { useToast } from './ToastContext'
 
-const AuthContext = createContext();
-const baseUrl = "http://localhost:8000";
+const AuthContext = createContext()
+const baseUrl = 'http://localhost:8000'
 
 export const AuthProvider = (
   props: JSX.IntrinsicAttributes & { value: unknown } & {
-    children: JSX.Element;
+    children: JSX.Element
   }
 ) => {
-  const [user, setUser] = createSignal(null);
-  const [isAuthenticated, setIsAuthenticated] = createSignal(false);
+  const [user, setUser] = createSignal(null)
+  const [isAuthenticated, setIsAuthenticated] = createSignal(false)
 
   createEffect(() => {
     const checkAuthentication = async () => {
       try {
-        await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+        await axios.get(`${baseUrl}/sanctum/csrf-cookie`)
 
         const response = await axios.get(`${baseUrl}/api/user`, {
           withCredentials: true,
-          xsrfCookieName: "XSRF-TOKEN",
-          xsrfHeaderName: "X-XSRF-TOKEN",
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
           withXSRFToken: true,
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
-        });
+        })
 
-        const userData = response.data;
-        console.log("userData", userData);
-        setUser(userData);
+        const userData = response.data
+        console.log('userData', userData)
+        setUser(userData)
 
         if (userData) {
-          localStorage.setItem("user", JSON.stringify(userData));
-          localStorage.setItem("isAuthenticated", "true");
-          setIsAuthenticated(true);
+          localStorage.setItem('user', JSON.stringify(userData))
+          localStorage.setItem('isAuthenticated', 'true')
+          setIsAuthenticated(true)
         } else {
-          localStorage.removeItem("user");
-          localStorage.removeItem("isAuthenticated");
-          setIsAuthenticated(false);
+          localStorage.removeItem('user')
+          localStorage.removeItem('isAuthenticated')
+          setIsAuthenticated(false)
         }
       } catch (error) {
-        console.error("Error checking authentication:", error);
+        console.error('Error checking authentication:', error)
         // Handle the error appropriately, e.g., redirect to login page
       }
-    };
+    }
 
-    checkAuthentication();
-  });
+    checkAuthentication()
+  })
 
   const login = async (credentials: { email: string; password: string }) => {
     try {
-      await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+      await axios.get(`${baseUrl}/sanctum/csrf-cookie`)
       await axios.post(`${baseUrl}/login`, credentials, {
         withCredentials: true,
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
+        xsrfCookieName: 'XSRF-TOKEN',
+        xsrfHeaderName: 'X-XSRF-TOKEN',
         withXSRFToken: true,
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      });
+      })
 
       const userResponse = await axios.get(`${baseUrl}/api/user`, {
         withCredentials: true,
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
+        xsrfCookieName: 'XSRF-TOKEN',
+        xsrfHeaderName: 'X-XSRF-TOKEN',
         withXSRFToken: true,
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      });
+      })
 
-      const userData = userResponse.data;
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
-      localStorage.setItem("isAuthenticated", "true");
+      const userData = userResponse.data
+      setUser(userData)
+      localStorage.setItem('user', JSON.stringify(userData))
+      localStorage.setItem('isAuthenticated', 'true')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const register = async (data: {
-    name: string;
-    email: string;
-    password: string;
+    name: string
+    email: string
+    password: string
   }) => {
     try {
-      await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+      await axios.get(`${baseUrl}/sanctum/csrf-cookie`)
       await axios.post(`${baseUrl}/register`, data, {
         withCredentials: true,
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
+        xsrfCookieName: 'XSRF-TOKEN',
+        xsrfHeaderName: 'X-XSRF-TOKEN',
         withXSRFToken: true,
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      });
+      })
 
       const userResponse = await axios.get(`${baseUrl}/api/user`, {
         withCredentials: true,
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
+        xsrfCookieName: 'XSRF-TOKEN',
+        xsrfHeaderName: 'X-XSRF-TOKEN',
         withXSRFToken: true,
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      });
+      })
 
-      const userData = userResponse.data;
-      setUser(userData);
+      const userData = userResponse.data
+      setUser(userData)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const logout = async () => {
     try {
@@ -135,67 +135,67 @@ export const AuthProvider = (
         {},
         {
           withCredentials: true,
-          xsrfCookieName: "XSRF-TOKEN",
-          xsrfHeaderName: "X-XSRF-TOKEN",
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
           withXSRFToken: true,
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
         }
-      );
+      )
 
-      setUser(null);
-      setIsAuthenticated(false);
-      localStorage.removeItem("user");
-      localStorage.removeItem("isAuthenticated");
+      setUser(null)
+      setIsAuthenticated(false)
+      localStorage.removeItem('user')
+      localStorage.removeItem('isAuthenticated')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
-  const { showToast } = useToast() as any;
+  }
+  const { showToast } = useToast() as any
 
   const updateUser = async (data: {
-    name: string;
-    email: string;
-    bio: string;
-    website: string;
+    name: string
+    email: string
+    bio: string
+    website: string
   }) => {
     try {
-      await axios.get(`${baseUrl}/sanctum/csrf-cookie`);
+      await axios.get(`${baseUrl}/sanctum/csrf-cookie`)
 
       const userResponse = await axios.put(
         `${baseUrl}/user/profile-information `,
         data,
         {
           withCredentials: true,
-          xsrfCookieName: "XSRF-TOKEN",
-          xsrfHeaderName: "X-XSRF-TOKEN",
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
           withXSRFToken: true,
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
         }
-      );
+      )
 
-      showToast("Profile updated successfully", { duration: 3000 });
+      showToast('Profile updated successfully', { duration: 3000 })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  const value = { user, login, register, logout, isAuthenticated, updateUser };
+  const value = { user, login, register, logout, isAuthenticated, updateUser }
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
-  );
-};
+  )
+}
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context = useContext(AuthContext)
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider')
   }
-  return context;
-};
+  return context
+}

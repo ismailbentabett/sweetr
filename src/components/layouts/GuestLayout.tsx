@@ -1,9 +1,9 @@
 // components/GuestLayout.tsx
 
-import { useNavigate } from "@solidjs/router";
-import { createEffect } from "solid-js";
-import { JSX } from "solid-js/jsx-runtime";
-import { useAuth } from "../../context/authContext";
+import { useNavigate } from '@solidjs/router'
+import { createEffect } from 'solid-js'
+import { JSX } from 'solid-js/jsx-runtime'
+import { useAuth } from '../../context/authContext'
 
 interface GuestLayoutProps {
   children:
@@ -13,23 +13,23 @@ interface GuestLayoutProps {
     | JSX.ArrayElement
     | (string & {})
     | null
-    | undefined;
+    | undefined
 }
 
 const GuestLayout = (props: GuestLayoutProps) => {
-  const { isAuthenticated } = useAuth() as any;
-  const navigate = useNavigate();
-
- 
+  const { isAuthenticated } = useAuth() as any
+  const navigate = useNavigate()
 
   createEffect(() => {
-    if (isAuthenticated() || localStorage.getItem("isAuthenticated") === "true") {
-      navigate("/");
+    if (
+      isAuthenticated() ||
+      localStorage.getItem('isAuthenticated') === 'true'
+    ) {
+      navigate('/')
     }
-  }
-  );
+  })
 
-  return <>{props.children}</>;
-};
+  return <>{props.children}</>
+}
 
-export default GuestLayout;
+export default GuestLayout

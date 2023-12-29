@@ -1,19 +1,18 @@
-import { Component, For, Show, createEffect } from "solid-js";
-import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
-import { useUser } from "../context/userContext";
-import SweetPost from "../components/sweets/SweetPost";
-import Empty from "../components/Empty";
+import { Component, For, Show, createEffect } from 'solid-js'
+import Authenticatedlayout from '../components/layouts/Authenticatedlayout'
+import { useUser } from '../context/userContext'
+import SweetPost from '../components/sweets/SweetPost'
+import Empty from '../components/Empty'
 
 const BookMarkScreen: Component = () => {
-  const { bookmarks, fetchBookmarks } = useUser() as any;
+  const { bookmarks, fetchBookmarks } = useUser() as any
   createEffect(() => {
-    fetchBookmarks();
-  });
+    fetchBookmarks()
+  })
 
   return (
     <Authenticatedlayout>
-   
-     <Show
+      <Show
         when={JSON.stringify(bookmarks().data) !== JSON.stringify([])}
         fallback={
           <div>
@@ -24,9 +23,9 @@ const BookMarkScreen: Component = () => {
         <For each={bookmarks().data}>
           {(sweet) => <SweetPost sweet={sweet} />}
         </For>
-      </Show> 
+      </Show>
     </Authenticatedlayout>
-  );
-};
+  )
+}
 
-export default BookMarkScreen;
+export default BookMarkScreen

@@ -150,7 +150,7 @@ body {
   display: inline-block;
 }
 
-.upload-btn-wrapper input[type="file"] {
+.upload-btn-wrapper input[type='file'] {
   font-size: 100px;
   position: absolute;
   left: 0;
@@ -165,7 +165,7 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(91, 112, 131, 0.4);
-  content: "";
+  content: '';
 }
 
 .modal {
