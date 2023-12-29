@@ -6,8 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
-use Maize\Markable\Models\Like;
 use Maize\Markable\Models\Bookmark;
+use Maize\Markable\Models\Like;
 
 class SweetResource extends JsonResource
 {
@@ -20,6 +20,7 @@ class SweetResource extends JsonResource
     {
         $sweet = $this->resource;
         $authUser = User::find(Auth::user()->id);
+
         return [
             'id' => $this->id,
             'content' => $this->content,

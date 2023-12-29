@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\SweetResource;
 use App\Models\Sweet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maize\Markable\Models\Like;
-use Maize\Markable\Models\Bookmark;
-
 
 class SweetController extends Controller
 {
-
     // App/Http/Controllers/SweetsController.php
-
 
     public function index()
     {
@@ -24,12 +18,13 @@ class SweetController extends Controller
 
         return SweetResource::collection($sweets);
     }
+
     public function userSweets($id)
     {
         $sweets = Sweet::where('user_id', $id)->latest('created_at')->get();
+
         return SweetResource::collection($sweets);
     }
-
 
     public function mySweets()
     {
@@ -79,6 +74,7 @@ class SweetController extends Controller
     {
         $sweet = Sweet::find($id);
         $sweet->delete();
+
         return response()->json(['message' => 'Sweet deleted successfully']);
     }
 }

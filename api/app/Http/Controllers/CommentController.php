@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class CommentController extends Controller
 {
@@ -32,6 +29,7 @@ class CommentController extends Controller
     public function show(Comment $comment)
     {
         $comment = $comment->load(['user', 'sweet', 'replies.user']);
+
         return response()->json($comment);
     }
 

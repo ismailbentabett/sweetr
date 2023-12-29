@@ -3,9 +3,9 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SweetController;
-use App\Http\Controllers\userInteractionsController;
 use App\Http\Controllers\sweetInteractionsController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\userInteractionsController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +27,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 // routes/api.php
-
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('sweets')->group(function () {
@@ -68,7 +67,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/isFollower/{id}', [userController::class, 'isFollower']);
         Route::get('/isFollowedBy/{followeeId}/{followerId}', [userController::class, 'isFollowedBy']);
     });
-
 
     Route::get('/liked', [sweetInteractionsController::class, 'likedSweets']);
     Route::get('/bookmarked', [sweetInteractionsController::class, 'bookmarkedSweets']);

@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class Cors
 {
@@ -16,7 +15,7 @@ class Cors
     public function handle($request, Closure $next)
     {
         $allowedOrigins = [
-            "*",
+            '*',
         ];
 
         $origin = $request->headers->get('Origin');

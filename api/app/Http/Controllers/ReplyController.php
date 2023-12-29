@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class ReplyController extends Controller
 {
@@ -31,6 +29,7 @@ class ReplyController extends Controller
     public function show(Reply $reply)
     {
         $reply = $reply->load(['user', 'comment.sweet']);
+
         return response()->json($reply);
     }
 
