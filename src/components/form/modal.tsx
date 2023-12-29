@@ -12,9 +12,9 @@ import {
 import Avatar from "../Avatar";
 
 import { Show } from "solid-js";
+import { useAuth } from "../../context/authContext";
 import { useSweet } from "../../context/sweetContext";
 import useForm from "../../hooks/useForm";
-import { useAuth } from "../../context/authContext";
 
 export default function Modal(props: { isOpen: any }): JSX.Element {
   const [isOpen, setIsOpen] = createSignal(props.isOpen);

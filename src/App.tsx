@@ -1,10 +1,9 @@
-import { JSX, createEffect, createSignal } from "solid-js";
+import { JSX, createSignal } from "solid-js";
 // @ts-ignore
-import LoadingBar, { LoadingBarRef } from "solid-top-loading-bar";
-import { useToast } from "./context/ToastContext";
-import { Toaster } from "solid-toast";
-import axios from "./helpers/axios";
 import axiosInstance from "axios";
+import { Toaster } from "solid-toast";
+import LoadingBar, { LoadingBarRef } from "solid-top-loading-bar";
+import axios from "./helpers/axios";
 
 const App = (props: {
   children?:

@@ -1,10 +1,8 @@
 // ToastProvider.tsx
 import {
-  createContext,
-  createSignal,
-  onCleanup,
   JSX,
-  useContext,
+  createContext,
+  useContext
 } from "solid-js";
 import toast, { Toaster } from "solid-toast"; // Import solid-toast library
 

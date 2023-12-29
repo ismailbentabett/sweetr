@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -14,7 +16,7 @@ html {
 
 body {
   margin: 0;
-  background-color: rgb(17,24,39)
+  background-color: rgb(17, 24, 39);
 }
 
 @layer components {
@@ -142,21 +144,19 @@ body {
   margin-top: 1rem;
 }
 
-
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
   display: inline-block;
 }
 
-.upload-btn-wrapper input[type=file] {
+.upload-btn-wrapper input[type="file"] {
   font-size: 100px;
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0;
 }
-
 
 .openModal:after {
   position: fixed;
@@ -165,7 +165,7 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(91, 112, 131, 0.4);
-  content: '';
+  content: "";
 }
 
 .modal {

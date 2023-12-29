@@ -1,3 +1,4 @@
+import { useNavigate } from "@solidjs/router";
 import {
   Component,
   createEffect,
@@ -7,9 +8,8 @@ import {
   Show,
 } from "solid-js";
 import { Portal } from "solid-js/web";
-import pageSize from "../../helpers/pageSize";
 import { useAuth } from "../../context/authContext";
-import { useNavigate } from "@solidjs/router";
+import pageSize from "../../helpers/pageSize";
 
 type Props = {
   opener: Component;

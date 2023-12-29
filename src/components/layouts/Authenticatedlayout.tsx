@@ -1,12 +1,11 @@
 // components/Authenticatedlayout.tsx
 
 import { useNavigate } from "@solidjs/router";
+import { createEffect, createSignal } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
-import { useAuth } from "../../context/authContext";
+import Modal from "../form/modal";
 import MainSidebar from "../sidebars/Main";
 import TrendsSidebar from "../sidebars/Trends";
-import { createEffect, createSignal } from "solid-js";
-import Modal from "../form/modal";
 
 interface AuthenticatedlayoutProps {
   children:

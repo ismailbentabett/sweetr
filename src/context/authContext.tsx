@@ -1,12 +1,12 @@
 // context/AuthContext.js
-import {
-  createSignal,
-  createEffect,
-  createContext,
-  useContext,
-  JSX,
-} from "solid-js";
 import axios from "axios";
+import {
+  JSX,
+  createContext,
+  createEffect,
+  createSignal,
+  useContext,
+} from "solid-js";
 import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();

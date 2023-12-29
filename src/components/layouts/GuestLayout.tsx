@@ -1,9 +1,9 @@
 // components/GuestLayout.tsx
 
 import { useNavigate } from "@solidjs/router";
+import { createEffect } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 import { useAuth } from "../../context/authContext";
-import { createEffect } from "solid-js";
 
 interface GuestLayoutProps {
   children:

@@ -1,8 +1,8 @@
 import { Component, Show, createEffect } from "solid-js";
+import Avatar from "../components/Avatar";
 import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
 import { useAuth } from "../context/authContext";
 import useForm from "../hooks/useForm";
-import Avatar from "../components/Avatar";
 
 const SettingScreen: Component = () => {
   const { user, updateUser } = useAuth() as any;

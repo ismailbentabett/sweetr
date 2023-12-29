@@ -5,8 +5,8 @@ import {
   onCleanup,
   useContext,
 } from "solid-js";
-import { Sweet } from "../types/Sweet";
 import axios from "../helpers/axios";
+import { Sweet } from "../types/Sweet";
 import { useToast } from "./ToastContext";
 import { useUser } from "./userContext";
 

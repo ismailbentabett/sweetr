@@ -1,12 +1,11 @@
-import { Component, For, Show, createEffect } from "solid-js";
-import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
-import Avatar from "../components/Avatar";
-import SweetPost from "../components/sweets/SweetPost";
-import { useSweet } from "../context/sweetContext";
-import { useAuth } from "../context/authContext";
 import { A, useParams } from "@solidjs/router";
-import SweetPostSkeleton from "../components/skeletons/SweetPostSkeleton";
+import { Component, For, Show, createEffect } from "solid-js";
+import Avatar from "../components/Avatar";
 import Empty from "../components/Empty";
+import Authenticatedlayout from "../components/layouts/Authenticatedlayout";
+import SweetPost from "../components/sweets/SweetPost";
+import { useAuth } from "../context/authContext";
+import { useSweet } from "../context/sweetContext";
 
 const ProfileScreen: Component = () => {
   //get user id from url

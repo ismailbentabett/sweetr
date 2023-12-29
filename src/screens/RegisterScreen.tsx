@@ -1,10 +1,10 @@
 // RegisterScreen.tsx
 import { A, useNavigate } from "@solidjs/router";
 import { Component } from "solid-js";
-import useForm from "../hooks/useForm";
-import { useAuth } from "../context/authContext";
 import Input from "../components/form/Input";
 import GuestLayout from "../components/layouts/GuestLayout";
+import { useAuth } from "../context/authContext";
+import useForm from "../hooks/useForm";
 
 const RegisterScreen: Component = () => {
   const navigate = useNavigate();
