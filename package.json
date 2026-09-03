@@ -12,8 +12,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@dicebear/collection": "^7.0.1",
-    "@dicebear/core": "^7.0.1",
+    "@dicebear/collection": "^9.4.2",
+    "@dicebear/core": "^10.7.0",
     "@solidjs/router": "^0.10.5",
     "@tailwindcss/forms": "^0.5.7",
     "axios": "^1.6.2",
